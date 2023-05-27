@@ -1,8 +1,13 @@
 import React from 'react';
+import { Button, TextField, Typography } from '@mui/material';
+import Form from './components/Form';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <h1>The BookTown</h1>
+    <div>
+      <Navbar />
+    </div>
   );
 }
 
