@@ -15,6 +15,7 @@ import Checkout from '../pages/Checkout';
 import Signup from '../pages/Signup';
 import Home from '../pages/Home';
 import Products from '../pages/Products';
+import Addbook from '../pages/Addbook';
 
 const routes = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const routes = createBrowserRouter([
       {
         path: '/checkout',
         element: <Checkout />,
+      },
+      {
+        path: '/addbook',
+        element: <Addbook />,
       },
     ],
   },
