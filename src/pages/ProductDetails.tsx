@@ -1,20 +1,12 @@
 import ProductReview from '@/components/ProductReview';
 import { Button } from '@/components/ui/button';
-import { IProduct } from '@/types/globalTypes';
+import { IBook } from '@/types/globalTypes';
 import { useParams } from 'react-router-dom';
 import { useGetBookQuery } from '../redux/features/apiSlice';
 
 export default function ProductDetails() {
   const { id } = useParams();
   const {data: book, isLoading, error} = useGetBookQuery(id);
-
-  // //! Temporary code, should be replaced with redux
-  // const [data, setData] = useState<IProduct[]>([]);
-  // useEffect(() => {
-  //   fetch('../../public/data.json')
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data));
-  // }, []);
 
   // const product = data?.find((item) => item._id === Number(id));
 

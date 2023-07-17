@@ -3,9 +3,9 @@
 // import { Slider } from '@/components/ui/slider';
 // import { Switch } from '@/components/ui/switch';
 import { useToast } from '../components/ui/use-toast';
-// import { IProduct } from '@/types/globalTypes';
+// import { IBook } from '@/types/globalTypes';
 import { useEffect, useState } from 'react';
-import { IProduct } from '../components/types/globalTypes';
+import { IBook } from '../components/types/globalTypes';
 import { Switch } from '../components/ui/switch';
 import { Label } from '../components/ui/label';
 import { Slider } from '../components/ui/slider';
@@ -17,10 +17,10 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { searchParam, sortType } from '../redux/features/filterSlice';
 
 export default function Products() {
-  const {data, isLoading, error} = useGetBooksQuery(undefined);
+  const {data: books, isLoading, error} = useGetBooksQuery(undefined);
   const dispatch = useAppDispatch();
 
-  // const [data, setData] = useState<IProduct[]>([]);
+  // const [data, setData] = useState<IBook[]>([]);
   
   // useEffect(() => {
   //   fetch('./data.json')
@@ -98,9 +98,11 @@ export default function Products() {
         </div>
       </div>
       <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
-        {data?.map((product) => (
-          <ProductCard product={product} />
-        ))}
+        {
+        books?.map((book) => (
+          <ProductCard book={book} />
+        ))
+        }
       </div>
     </div>
   );
