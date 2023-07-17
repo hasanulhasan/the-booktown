@@ -1,16 +1,24 @@
 import ProductReview from '@/components/ProductReview';
 import { Button } from '@/components/ui/button';
 import { IBook } from '@/types/globalTypes';
-import { useParams } from 'react-router-dom';
-import { useGetBookQuery } from '../redux/features/apiSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDeleteBookMutation, useGetBookQuery } from '../redux/features/apiSlice';
 
 export default function ProductDetails() {
   const { id } = useParams();
+  const navigate = useNavigate()
   const {data: book, isLoading, error} = useGetBookQuery(id);
+  const [deleteBook] = useDeleteBookMutation()
 
   // const product = data?.find((item) => item._id === Number(id));
 
   // //! Temporary code ends here
+
+  const deleteHandle = (id) => {
+    console.log('clicked')
+    deleteBook(id);
+    navigate('/')
+  }
 
   return (
     <>
@@ -33,7 +41,10 @@ export default function ProductDetails() {
               <li key={feature}>{feature}</li>
             ))}
           </ul>
-          <Button>Add to cart</Button>
+          <div className='flex'>
+          <Button>Edit Book</Button>
+          <Button onClick={() => deleteHandle(id)} className="ms-2" variant="destructive">Delete Book</Button>
+          </div>
         </div>
       </div>
       {/* <ProductReview /> */}
