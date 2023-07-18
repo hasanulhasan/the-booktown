@@ -17,6 +17,8 @@ import Home from '../pages/Home';
 import Products from '../pages/Products';
 import Addbook from '../pages/Addbook';
 import EditBook from '../pages/EditBook';
+import RegisterForm from '../components/RegisterForm';
+import LogInFrom from '../components/LogInFrom';
 
 const routes = createBrowserRouter([
   {
@@ -47,16 +49,17 @@ const routes = createBrowserRouter([
         path: '/editbook/:id',
         element: <EditBook />,
       },
+      {
+        path: '/signup',
+        element: <RegisterForm/>
+      },
+      {
+        path: '/login',
+        element: <LogInFrom />,
+      },
     ],
   },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/signup',
-    element: <Signup />,
-  },
+  
   {
     path: '*',
     element: <NotFound />,
