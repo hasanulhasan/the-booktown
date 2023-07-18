@@ -1,12 +1,14 @@
 import ProductReview from '@/components/ProductReview';
 import { Button } from '@/components/ui/button';
 import { IBook } from '@/types/globalTypes';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDeleteBookMutation, useGetBookQuery } from '../redux/features/apiSlice';
+import { useToast } from '../components/ui/use-toast';
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const {data: book, isLoading, error} = useGetBookQuery(id);
   const [deleteBook] = useDeleteBookMutation()
 
@@ -15,9 +17,16 @@ export default function ProductDetails() {
   // //! Temporary code ends here
 
   const deleteHandle = (id) => {
-    console.log('clicked')
+    alert('Are you sure to delete this book?')
     deleteBook(id);
+    toast({
+      description: 'Book Deleted Successfully',
+    });
     navigate('/')
+  }
+
+  const handleNavigate = () => {
+      navigate(`/editbook/${id}`)
   }
 
   return (
@@ -36,13 +45,13 @@ export default function ProductDetails() {
         <p className="text-sm">
           Availability: {book?.status ? 'In stock' : 'Out of stock'}
         </p>
-          <ul className="space-y-1 text-lg">
+          {/* <ul className="space-y-1 text-lg">
             {book?.features?.map((feature) => (
-              <li key={feature}>{feature}</li>
+              <li key={id}>{feature}</li>
             ))}
-          </ul>
+          </ul> */}
           <div className='flex'>
-          <Button>Edit Book</Button>
+          <Button onClick={handleNavigate}>Edit Book</Button>
           <Button onClick={() => deleteHandle(id)} className="ms-2" variant="destructive">Delete Book</Button>
           </div>
         </div>

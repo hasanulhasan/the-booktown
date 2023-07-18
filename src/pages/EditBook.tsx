@@ -1,21 +1,25 @@
 import React, { useState } from 'react'
-import { useAddBookMutation } from '../redux/features/apiSlice';
-import { useNavigate } from 'react-router-dom';
+import { useAddBookMutation, useEditBookMutation, useGetBookQuery } from '../redux/features/apiSlice';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useToast } from '../components/ui/use-toast';
 
-export default function Addbook() {
+export default function EditBook() {
   const navigate = useNavigate();
-  const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
-  const dateOfPublication = new Date();
-  const { toast } = useToast();
+  const { id } = useParams();
+  const {data} = useGetBookQuery(id);
+  console.log(data)
+  const [] = useEditBookMutation();
 
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [img, setImg] = useState('');
-  const [price, setPrice] = useState('');
-  const [genre, setGenre] = useState('');
-  const [rating, setRating] = useState('');
-  const [status, setStatus] = useState(true);
+  const { title: initialTitle, author: initialAuthor, img: initialImg, price: initialPrice, genre: initialGenre, rating: initialRating, status: initialStatus } = data;
+  // const { toast } = useToast();
+
+  const [title, setTitle] = useState(initialTitle);
+  const [author, setAuthor] = useState(initialAuthor);
+  const [img, setImg] = useState(initialImg);
+  const [price, setPrice] = useState(initialPrice);
+  const [genre, setGenre] = useState(initialGenre);
+  const [rating, setRating] = useState(initialRating);
+  const [status, setStatus] = useState(initialStatus);
 
   const resetForm = () => {
     setTitle('')
@@ -45,14 +49,14 @@ export default function Addbook() {
 <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
   <div className="container max-w-screen-lg mx-auto">
     <div>
-      <h2 className="font-semibold text-xl text-gray-600 text-center">Add a new Book</h2>
-      <p className="text-gray-500 mb-6 text-center">The form for adding a new book</p>
+      <h2 className="font-semibold text-xl text-gray-600 text-center">Edit Book</h2>
+      <p className="text-gray-500 mb-6 text-center">The form for editing a book</p>
 
       <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
         <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
           <div className="text-gray-600">
-            <p className="font-medium text-lg">Enter Book info</p>
-            <p>Please fill out all the fields.</p>
+            <p className="font-medium text-lg">Edit Book info</p>
+            <p>Please fill out carefully</p>
           </div>
 
           <form onSubmit={handleSubmit} className="lg:col-span-2">

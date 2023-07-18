@@ -16,6 +16,7 @@ import Signup from '../pages/Signup';
 import Home from '../pages/Home';
 import Products from '../pages/Products';
 import Addbook from '../pages/Addbook';
+import EditBook from '../pages/EditBook';
 
 const routes = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const routes = createBrowserRouter([
       {
         path: '/addbook',
         element: <Addbook />,
+      },
+      {
+        path: '/editbook/:id',
+        element: <EditBook />,
       },
     ],
   },
