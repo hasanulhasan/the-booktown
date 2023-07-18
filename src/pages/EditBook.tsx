@@ -8,10 +8,10 @@ export default function EditBook() {
   const { id } = useParams();
   const {data} = useGetBookQuery(id);
   console.log(data)
-  const [] = useEditBookMutation();
+  const [editbook] = useEditBookMutation();
 
-  const { title: initialTitle, author: initialAuthor, img: initialImg, price: initialPrice, genre: initialGenre, rating: initialRating, status: initialStatus } = data;
-  // const { toast } = useToast();
+  const { title: initialTitle, author: initialAuthor, img: initialImg, price: initialPrice, genre: initialGenre, rating: initialRating, status: initialStatus, dateOfPublication } = data;
+  const { toast } = useToast();
 
   const [title, setTitle] = useState(initialTitle);
   const [author, setAuthor] = useState(initialAuthor);
@@ -34,12 +34,13 @@ export default function EditBook() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(title, author, img, price, genre, rating, status)
-    addBook({
-      title, author, img, price, genre, rating, status, dateOfPublication
+    editbook({
+      id: id,
+      data: {title, author, img, price, genre, rating, status, dateOfPublication}
     })
     resetForm();
     toast({
-      description: 'Book Added Successfully',
+      description: 'Book Edited Successfully',
     });
     navigate('/')
   }

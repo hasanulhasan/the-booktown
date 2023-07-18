@@ -105,7 +105,7 @@ export default function Products() {
       <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
         {
         books?.map((book) => (
-          <ProductCard book={book} />
+          <ProductCard key={book.id} book={book} />
         ))
         }
       </div>

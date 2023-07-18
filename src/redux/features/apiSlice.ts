@@ -6,14 +6,15 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9000/' }),
-  tagTypes: ['Books'],
+  tagTypes: ['Books', 'Book'],
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => '/books',
       providesTags: ['Books']
     }),
     getBook: builder.query({
-      query: (id) => `/books/${id}`
+      query: (id) => `/books/${id}`,
+      providesTags: ['Book']
     }),
     addBook: builder.mutation({
       query: (data) => ({
@@ -28,7 +29,7 @@ export const api = createApi({
         url: `/books/${id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['Books']
+      invalidatesTags: ['Books', 'Book']
     }),
     editBook: builder.mutation({
       query: ({ id, data }) => ({
@@ -36,7 +37,7 @@ export const api = createApi({
         method: 'PATCH',
         body: data
       }),
-      invalidatesTags: ['Books']
+      invalidatesTags: ['Books', 'Book']
     })
     
   }),
