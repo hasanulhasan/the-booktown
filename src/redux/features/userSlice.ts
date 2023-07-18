@@ -1,7 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import {app} from '../../lib/firebase'
+import {auth} from '../../lib/firebase'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-const auth = getAuth(app)
 
 interface IUser {
   user: {
@@ -39,7 +38,14 @@ export const loginUser = createAsyncThunk('user/loginUser', async ({email, passw
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action: PayloadAction<string | null>) => {
+      state.user.email = action.payload;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(createUser.pending, (state)=> {
       state.isLoading = true;
@@ -74,3 +80,4 @@ const userSlice = createSlice({
 
 
 export default userSlice.reducer;
+export const {setUser, setLoading} = userSlice.actions

@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import bookIcon from '../assets/images/bookIcon.jpg'
+import { useAppDispatch } from '../redux/hooks';
+import { loginUser } from '../redux/features/userSlice';
 
 export default function LogInFrom() {
+  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -9,6 +12,7 @@ export default function LogInFrom() {
   const handleSubmit = (e)=> {
     e.preventDefault();
     console.log(email, password)
+    dispatch(loginUser({email,password}))
   }
 
   return (
