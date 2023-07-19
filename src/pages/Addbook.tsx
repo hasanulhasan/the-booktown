@@ -17,7 +17,7 @@ export default function Addbook() {
   const [rating, setRating] = useState('');
   const [status, setStatus] = useState(true);
   const [dateOfPublication, setDateOfPublication] = useState('');
-  const reviews = [];
+  const reviews: string[] = [];
   
   const resetForm = () => {
     setTitle('')
@@ -58,26 +58,26 @@ export default function Addbook() {
             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
               <div className="md:col-span-5">
                 <label htmlFor="book_title">Title</label>
-                <input type="text" name="title" id="title" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <input type="text" name="title" id="title" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={title} onChange={(e) => setTitle(e.target.value)} required/>
               </div>
               <div className="md:col-span-5">
                 <label htmlFor="author">Author</label>
-                <input type="text" name="author" id="author" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={author} onChange={(e) => setAuthor(e.target.value)} />
+                <input type="text" name="author" id="author" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={author} onChange={(e) => setAuthor(e.target.value)} required/>
               </div>
               <div className="md:col-span-5">
                 <label htmlFor="imgUrl">Image URL</label>
                 <input type="text" name="imgUrl" id="imgUrl" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={img}
-                onChange={(e) => setImg(e.target.value)} />
+                onChange={(e) => setImg(e.target.value)} required/>
               </div>
 
               <div className="md:col-span-2">
                 <label htmlFor="price">Price</label>
-                <input type="text" name="price" id="price" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="" />
+                <input type="text" name="price" id="price" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={price} onChange={(e) => setPrice(e.target.value)} required/>
               </div>
 
               <div className="md:col-span-2">
                 <label htmlFor="genre">Genre</label>
-                <select name="genre" id="genre" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={genre} onChange={(e) => setGenre(e.target.value)}>
+                <select name="genre" id="genre" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={genre} onChange={(e) => setGenre(e.target.value)} required>
                   <option value='science'>Science</option>
                   <option value='history'>History</option>
                   <option value='novel'>Novel</option>
@@ -88,7 +88,7 @@ export default function Addbook() {
 
               <div className="md:col-span-2">
                 <label htmlFor="rating">Rating</label>
-                <select name="rating" id="rating" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={rating} onChange={(e) => setRating(e.target.value)}>
+                <select name="rating" id="rating" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={rating} onChange={(e) => setRating(e.target.value)} required>
                   <option value='1'>1</option>
                   <option value='2'>2</option>
                   <option value='3'>3</option>
@@ -99,17 +99,15 @@ export default function Addbook() {
 
               <div className="md:col-span-2">
                 <label htmlFor="status">Status</label>
-                <select name="status" id="status" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={status} onChange={(e) => setStatus(e.target.value)}>
+                <select name="status" id="status" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={status} onChange={(e) => setStatus(!status)} required>
                   <option value='true'>In Stock</option>
                   <option value='false'>Out Of Stock</option>
                 </select>
               </div>
 
               <div className="md:col-span-2">
-              <div className="fieldContainer">
                   <label htmlFor="date">Published Date</label>
-                  <input className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" type="date" name="lwsJobDeadline" id="lwsJobDeadline" value={dateOfPublication} onChange={(e) => setDateOfPublication(e.target.value)} />
-                </div>
+                  <input className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" type="date" name="lwsJobDeadline" id="lwsJobDeadline" value={dateOfPublication} onChange={(e) => setDateOfPublication(e.target.value)} required/>
               </div>
 
               <div className="md:col-span-5">

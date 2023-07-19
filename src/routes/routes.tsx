@@ -19,6 +19,7 @@ import Addbook from '../pages/Addbook';
 import EditBook from '../pages/EditBook';
 import RegisterForm from '../components/RegisterForm';
 import LogInFrom from '../components/LogInFrom';
+import Edit from '../pages/Edit';
 
 const routes = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ const routes = createBrowserRouter([
       },
       {
         path: '/editbook/:id',
-        element: <EditBook />,
+        element: <Edit/>,
       },
       {
         path: '/signup',
