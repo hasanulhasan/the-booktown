@@ -16,11 +16,13 @@ import { auth } from '../lib/firebase';
 import { signOut } from 'firebase/auth';
 import { toast } from '../components/ui/use-toast';
 import { setUser } from '../redux/features/userSlice';
+
 // import logo from '../assets/images/bookLogo2.jpg';
 
 export default function Navbar() {
   const {user} = useAppSelector(state => state.user)
   const dispatch = useAppDispatch();
+  const firstwordAvatar = user.email
 
   const handleLogout = ()=> {
     console.log('logout done')
@@ -54,7 +56,7 @@ export default function Navbar() {
                   <Link to="/products">Books</Link>
                 </Button>
               </li>
-              {
+              {/* {
                 user.email &&  
                 (<>
                 <li>
@@ -62,13 +64,8 @@ export default function Navbar() {
                   <Link to="/checkout">Checkout</Link>
                 </Button>
                 </li>
-                <li>
-                <Button onClick={handleLogout} variant="link" asChild>
-                 <Link to='/'>Logout</Link>
-                </Button>
-                </li>
                 </>)
-              }
+              } */}
               {/* <li>
                 <Button variant="link" asChild>
                   <Link to="/checkout">Checkout</Link>
@@ -80,13 +77,15 @@ export default function Navbar() {
                 </Button>
               </li> */}
               <li>
-                <Cart />
-              </li>
-              <li className="ml-5">
+                {/* <Cart /> */}
+              </li>{
+                user?.email?  
+                <>
+                  <li className="ml-5">
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none">
                     <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarImage src={`https://ui-avatars.com/api/?name=${firstwordAvatar}`} />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
@@ -94,17 +93,23 @@ export default function Navbar() {
                     <DropdownMenuLabel>Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="cursor-pointer">
-                      <Link to="/login">Login</Link>
+                    <Link to='/'>WishList</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      <Link to="/signup">Sign Up</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      Logout
+                    <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+                    <Link to='/'>Logout</Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </li>
+                </> : 
+                <>
+                <li>
+                <Button variant="secondary" asChild>
+                <Link to="/login">Login</Link>
+                </Button>
+                </li>
+                </>
+              }
             </ul>
           </div>
         </div>

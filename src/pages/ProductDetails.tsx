@@ -12,9 +12,6 @@ export default function ProductDetails() {
   const {data: book, isLoading, error} = useGetBookQuery(id);
   const [deleteBook] = useDeleteBookMutation()
 
-  // const product = data?.find((item) => item._id === Number(id));
-
-  // //! Temporary code ends here
 
   const deleteHandle = (id) => {
     alert('Are you sure to delete this book?')
@@ -56,7 +53,10 @@ export default function ProductDetails() {
           </div>
         </div>
       </div>
-      {/* <ProductReview /> */}
+      {
+        book?.reviews? <ProductReview reviews={book?.reviews}/> : null
+      }
+      
     </>
   );
 }

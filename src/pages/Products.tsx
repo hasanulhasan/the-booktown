@@ -19,49 +19,17 @@ import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
 
 export default function Products() {
-  const {data: books, isLoading, error} = useGetBooksQuery(undefined);
+  const {data: books, isLoading,isError, error} = useGetBooksQuery(undefined);
+  const {search} = useAppSelector(state => state.filter.search)
   const dispatch = useAppDispatch();
 
-  // const [data, setData] = useState<IBook[]>([]);
-  
-  // useEffect(() => {
-  //   fetch('./data.json')
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data));
-  // }, []);
-
-  // console.log(data)
-  const { toast } = useToast();
-
-  //! Dummy Data
-
-  // const status = true;
-  // const priceRange = 100;
-
-  // //! **
-
-  const handleSlider = (value: number[]) => {
-    console.log(value);
-  };
-
-  // let productsData;
-
-  // if (status) {
-  //   productsData = data.filter(
-  //     (item) => item.status === true && item.price < priceRange
-  //   );
-  // } else if (priceRange > 0) {
-  //   productsData = data.filter((item) => item.price < priceRange);
-  // } else {
-  //   productsData = data;
-  // }
-
-  // const handleSearch = (text) => {
-  //   console.log(text)
-  // }
-  // const handleSelect = (e) => {
-  //     console.log(e)
-  // }
+  let content = null;
+  if (isLoading) content = <p className='text-lg text-destructive'>Loading...</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive'>There was an error</p>;
+  if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
+  if (!isLoading && !isError && books?.length > 0) {
+    content = books.map(book => <ProductCard key={book
+        .id} book={book} />)}
 
   return (
     <div className="grid grid-cols-12 max-w-7xl mx-auto relative ">
@@ -104,11 +72,10 @@ export default function Products() {
       </div>
       <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
         {
-        books?.map((book) => (
-          <ProductCard key={book.id} book={book} />
-        ))
+         content
         }
       </div>
     </div>
   );
 }
+

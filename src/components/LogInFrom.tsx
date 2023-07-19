@@ -1,19 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import bookIcon from '../assets/images/bookIcon.jpg'
-import { useAppDispatch } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { loginUser } from '../redux/features/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { toast } from './ui/use-toast';
 
 export default function LogInFrom() {
   const dispatch = useAppDispatch();
-
+  const {user, isLoading} = useAppSelector(state => state.user)
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const navigate = useNavigate();
 
   const handleSubmit = (e)=> {
     e.preventDefault();
     console.log(email, password)
     dispatch(loginUser({email,password}))
   }
+
+  useEffect(()=> {
+    if(user.email && !isLoading){
+      navigate('/')
+      toast({
+        description: 'Login Successful',
+      });
+    }
+  },[user.email, isLoading])
 
   return (
     <>

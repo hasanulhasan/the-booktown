@@ -9,4 +9,5 @@ export interface IBook {
   status: boolean;
   rating: number;
   dateOfPublication: string;
+  reviews?: string[]
 }
