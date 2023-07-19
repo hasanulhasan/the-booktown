@@ -54,7 +54,7 @@ export default function ProductDetails() {
         </div>
       </div>
       {
-        book?.reviews? <ProductReview reviews={book?.reviews}/> : null
+        book?.reviews? <ProductReview reviews={book?.reviews} bookid={book.id}/> : null
       }
       
     </>
