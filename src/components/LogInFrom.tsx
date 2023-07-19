@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import bookIcon from '../assets/images/bookIcon.jpg'
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { loginUser } from '../redux/features/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from './ui/use-toast';
 
 export default function LogInFrom() {
@@ -56,7 +56,7 @@ export default function LogInFrom() {
 
                 <div className="flex items-baseline justify-between">
                     <button type='submit' className="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Login</button>
-                    <a href="#" className="text-sm text-blue-600 hover:underline">Forgot password?</a>
+                    <Link to="/signup" className="text-sm text-blue-600 hover:underline">Register First</Link>
                 </div>
             </div>
         </form>

@@ -86,7 +86,7 @@ export default function Navbar() {
                   <DropdownMenuTrigger className="outline-none">
                     <Avatar>
                       <AvatarImage src={`https://ui-avatars.com/api/?name=${firstwordAvatar}`} />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarFallback>X</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>

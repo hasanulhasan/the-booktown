@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useAddBookMutation } from '../redux/features/apiSlice';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../components/ui/use-toast';
@@ -6,7 +6,7 @@ import { useToast } from '../components/ui/use-toast';
 export default function Addbook() {
   const navigate = useNavigate();
   const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
-  const dateOfPublication = new Date();
+  // const dateOfPublication = new Date();
   const { toast } = useToast();
 
   const [title, setTitle] = useState('');
@@ -16,7 +16,9 @@ export default function Addbook() {
   const [genre, setGenre] = useState('');
   const [rating, setRating] = useState('');
   const [status, setStatus] = useState(true);
-
+  const [dateOfPublication, setDateOfPublication] = useState('');
+  const reviews = [];
+  
   const resetForm = () => {
     setTitle('')
     setAuthor('')
@@ -29,10 +31,7 @@ export default function Addbook() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title, author, img, price, genre, rating, status)
-    addBook({
-      title, author, img, price, genre, rating, status, dateOfPublication
-    })
+    addBook({ title, author, img, price, genre, rating, status, dateOfPublication, reviews})
     resetForm();
     toast({
       description: 'Book Added Successfully',
@@ -106,6 +105,12 @@ export default function Addbook() {
                 </select>
               </div>
 
+              <div className="md:col-span-2">
+              <div className="fieldContainer">
+                  <label htmlFor="date">Published Date</label>
+                  <input className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" type="date" name="lwsJobDeadline" id="lwsJobDeadline" value={dateOfPublication} onChange={(e) => setDateOfPublication(e.target.value)} />
+                </div>
+              </div>
 
               <div className="md:col-span-5">
                 <div className="inline-flex items-center">

@@ -3,15 +3,8 @@ import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { FiSend } from 'react-icons/fi';
 
-const dummyComments = [
-  'Bhalo na',
-  'Ki shob ghori egula??',
-  'Eta kono product holo ??',
-  '200 taka dibo, hobe ??',
-];
 
 export default function ProductReview({reviews}) {
-  console.log(reviews)
 
   return (
     <div className="max-w-7xl mx-auto mt-5">
@@ -22,10 +15,10 @@ export default function ProductReview({reviews}) {
         </Button>
       </div>
       <div className="mt-10">
-        {dummyComments.map((comment, index) => (
+        {reviews.map((comment, index) => (
           <div key={index} className="flex gap-3 items-center mb-5">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src='https://ui-avatars.com/api/?name=x'/>
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <p>{comment}</p>
