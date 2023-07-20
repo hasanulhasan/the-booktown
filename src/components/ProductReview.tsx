@@ -3,15 +3,15 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { FiSend } from 'react-icons/fi';
-import { useAddReviewMutation } from '../redux/features/apiSlice';
+import { useEditBookMutation } from '../redux/features/apiSlice';
 
 
 export default function ProductReview({reviews, bookid}) {
-  const [addReview] = useAddReviewMutation();
+  const [editbook] = useEditBookMutation();
   const [comment, setComment] = useState('');
 
   const reviewHandle = ()=> {
-      addReview({
+    editbook({
         id: bookid,
         data: { reviews:[...reviews, comment] }
       })

@@ -81,11 +81,11 @@ export default function EditBook({book}) {
               <div className="md:col-span-2">
                 <label htmlFor="genre">Genre</label>
                 <select name="genre" id="genre" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={genre} onChange={(e) => setGenre(e.target.value)} required>
-                  <option value='science'>Science</option>
-                  <option value='history'>History</option>
-                  <option value='novel'>Novel</option>
-                  <option value='romantic'>Romantic</option>
-                  <option value='story'>Story</option>
+                  <option value='Science'>Science</option>
+                  <option value='History'>History</option>
+                  <option value='Novel'>Novel</option>
+                  <option value='Romantic'>Romantic</option>
+                  <option value='Story'>Story</option>
                   </select>
               </div>
 
@@ -106,6 +106,11 @@ export default function EditBook({book}) {
                   <option value='true'>In Stock</option>
                   <option value='false'>Out Of Stock</option>
                 </select>
+              </div>
+
+              <div className="md:col-span-2">
+                  <label htmlFor="date">Published Date</label>
+                  <input className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" type="date" name="lwsJobDeadline" id="lwsJobDeadline" value={dateOfPublication} onChange={(e) => setDateOfPublication(e.target.value)} required/>
               </div>
 
 

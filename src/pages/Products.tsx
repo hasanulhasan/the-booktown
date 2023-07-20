@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom';
 
 export default function Products() {
   const {data: books, isLoading,isError, error} = useGetBooksQuery(undefined);
-  const {search} = useAppSelector(state => state.filter.search)
+  const {search, sort} = useAppSelector(state => state.filter)
   const dispatch = useAppDispatch();
 
   let content = null;
@@ -28,8 +28,28 @@ export default function Products() {
   if (!isLoading && isError) content = <p className='text-lg text-destructive'>There was an error</p>;
   if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && books?.length > 0) {
-    content = books.map(book => <ProductCard key={book
-        .id} book={book} />)}
+    content = books.filter(book => {
+      if (sort === 'Science') {
+        console.log(book.genre)
+        return (book.genre === sort)
+      }
+      else if (sort === 'History') {
+        return (book.genre === sort)
+      }
+      else if (sort === 'Novel') {
+        return (book.genre === sort)
+      }
+      else if (sort === 'Romantic') {
+        return (book.genre === sort)
+      }
+      else if (sort === 'Story') {
+        return (book.genre === sort)
+      }
+      else {
+        console.log(book.genre)
+        return book
+      }
+    }).filter(book => book.title.toLowerCase().includes(search.toLowerCase())).map(book => <ProductCard key={book.id} book={book} />)}
 
   return (
     <div className="grid grid-cols-12 max-w-7xl mx-auto relative ">
@@ -60,12 +80,14 @@ export default function Products() {
           </SelectContent>
         </Select> */}
 
+        <h1 className="text-2xl uppercase">Genre</h1>
         <select onChange={(e)=> dispatch(sortType(e.target.value))} name="sort" className="outline w-full rounded">
-          <option value='default'>Default</option>
-          <option value='genreAtoZ'>Genre A to Z</option>
-          <option value='genreZtoA'>Genre Z to A</option>
-          <option value='publishNew'>Published new to old</option>
-          <option value='publishOld'>Published old to new</option>
+        <option value=''>Default</option>
+          <option value='Science'>Science</option>
+          <option value='History'>History</option>
+          <option value='Novel'>Novel</option>
+          <option value='Romantic'>Romantic</option>
+          <option value='Story'>Story</option>
         </select>
 
         </div>
