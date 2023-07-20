@@ -20,6 +20,7 @@ import EditBook from '../pages/EditBook';
 import RegisterForm from '../components/RegisterForm';
 import LogInFrom from '../components/LogInFrom';
 import Edit from '../pages/Edit';
+import { Wishlist } from '../pages/Wishlist';
 
 const routes = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const routes = createBrowserRouter([
       {
         path: '/login',
         element: <LogInFrom />,
+      },
+      {
+        path: '/wishlist',
+        element: <Wishlist />,
       },
     ],
   },

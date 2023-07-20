@@ -93,7 +93,10 @@ export default function Navbar() {
                     <DropdownMenuLabel>Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="cursor-pointer">
-                    <Link to='/'>WishList</Link>
+                    <Link to='/addbook'>Add Book</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                    <Link to='/wishlist'>WishList</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
                     <Link to='/'>Logout</Link>

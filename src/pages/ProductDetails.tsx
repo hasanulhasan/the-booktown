@@ -42,11 +42,6 @@ export default function ProductDetails() {
         <p className="text-sm">
           Availability: {book?.status ? 'In stock' : 'Out of stock'}
         </p>
-          {/* <ul className="space-y-1 text-lg">
-            {book?.features?.map((feature) => (
-              <li key={id}>{feature}</li>
-            ))}
-          </ul> */}
           <div className='flex'>
           <Button onClick={handleNavigate}>Edit Book</Button>
           <Button onClick={() => deleteHandle(id)} className="ms-2" variant="destructive">Delete Book</Button>

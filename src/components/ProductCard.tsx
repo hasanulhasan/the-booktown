@@ -2,16 +2,21 @@ import { IBook } from '@/types/globalTypes';
 import { toast } from './ui/use-toast';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../redux/hooks';
+import { useAddWishlistMutation } from '../redux/features/wishListSlice';
 
 interface IProps {
   product: IBook;
 }
 
 export default function ProductCard({ book }: IProps) {
+  const {email:userEmail} = useAppSelector(state=> state.user.user)
+  const [addWishlist] = useAddWishlistMutation();
 
   const handleAddProduct = (book: IBook) => {
+    addWishlist({...book, userEmail, isRead: false})
     toast({
-      description: 'Product Added',
+      title: 'Book Added on Wishlist',
     });
   };
   
@@ -31,7 +36,7 @@ export default function ProductCard({ book }: IProps) {
           Availability: {product?.status ? 'In stock' : 'Out of stock'}
         </p> */}
         <Button variant="default" onClick={() => handleAddProduct(book)}>
-          Add to cart
+          Add to Wishlist
         </Button>
       </div>
     </div>
