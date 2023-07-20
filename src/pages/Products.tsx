@@ -1,26 +1,14 @@
-// import ProductCard from '@/components/ProductCard';
-// import { Label } from '@/components/ui/label';
-// import { Slider } from '@/components/ui/slider';
-// import { Switch } from '@/components/ui/switch';
-import { useToast } from '../components/ui/use-toast';
-// import { IBook } from '@/types/globalTypes';
-import { useEffect, useState } from 'react';
-import { IBook } from '../components/types/globalTypes';
-import { Switch } from '../components/ui/switch';
-import { Label } from '../components/ui/label';
-import { Slider } from '../components/ui/slider';
 import ProductCard from '../components/ProductCard';
 import { useGetBooksQuery } from '../redux/features/apiSlice';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Input } from '../components/ui/input';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { searchParam, sortType } from '../redux/features/filterSlice';
+import { dateSort, priceSort, searchParam, sortType} from '../redux/features/filterSlice';
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
 
 export default function Products() {
   const {data: books, isLoading,isError, error} = useGetBooksQuery(undefined);
-  const {search, sort} = useAppSelector(state => state.filter)
+  const {search, sort, date, price} = useAppSelector(state => state.filter)
   const dispatch = useAppDispatch();
 
   let content = null;
@@ -30,7 +18,6 @@ export default function Products() {
   if (!isLoading && !isError && books?.length > 0) {
     content = books.filter(book => {
       if (sort === 'Science') {
-        console.log(book.genre)
         return (book.genre === sort)
       }
       else if (sort === 'History') {
@@ -46,9 +33,18 @@ export default function Products() {
         return (book.genre === sort)
       }
       else {
-        console.log(book.genre)
         return book
       }
+    }).sort((a, b) => {
+      if (price === 'asc') { return (Number(a.price) - Number(b.price)) }
+      else if (price === 'dec') { return (Number(b.price) - Number(a.price))  }
+      else { return null }
+    })
+    .sort((a, b) => {
+      if (date === 'asc') {
+        return (Number((a.dateOfPublication).replace(/[^0-9]/g, '')) - Number((b.dateOfPublication).replace(/[^0-9]/g, ''))) }
+      else if (date === 'dec') { return (Number((b.dateOfPublication).replace(/[^0-9]/g, '')) - Number((a.dateOfPublication).replace(/[^0-9]/g, ''))) }
+      else { return null }
     }).filter(book => book.title.toLowerCase().includes(search.toLowerCase())).map(book => <ProductCard key={book.id} book={book} />)}
 
   return (
@@ -58,30 +54,14 @@ export default function Products() {
         <div className='w-full my-1'>
         <Button><Link to="/addbook">Add new Book</Link></Button>
         </div>
-          <h1 className="text-2xl uppercase">Search</h1>
+          <h1 className="text-xl uppercase">Search</h1>
           <div className="flex items-center space-x-2 mt-3">
             <Input onChange={(e)=> dispatch(searchParam(e.target.value))} placeholder='Search book'/>
-            {/* <Switch id="in-stock" />
-            <Label htmlFor="in-stock">In stock</Label> */}
           </div>
         </div>
         <div className="space-y-3 ">
-          <h1 className="text-2xl uppercase">Filter</h1>
-
-        {/* <Select onValueChange={(e)=> console.log(e.target.value)}>
-          <SelectTrigger>
-            <SelectValue placeholder="Default" />
-          </SelectTrigger>
-          <SelectContent position="popper">
-            <SelectItem value="0">Genre</SelectItem>
-            <SelectItem value="1">High to low</SelectItem>
-            <SelectItem value="3">Low to high</SelectItem>
-            <SelectItem value="7">date</SelectItem>
-          </SelectContent>
-        </Select> */}
-
-        <h1 className="text-2xl uppercase">Genre</h1>
-        <select onChange={(e)=> dispatch(sortType(e.target.value))} name="sort" className="outline w-full rounded">
+          <h1 className="text-xl uppercase">Filter by Genre</h1>
+        <select onChange={(e)=> dispatch(sortType(e.target.value))} name="filter" className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
         <option value=''>Default</option>
           <option value='Science'>Science</option>
           <option value='History'>History</option>
@@ -89,8 +69,26 @@ export default function Products() {
           <option value='Romantic'>Romantic</option>
           <option value='Story'>Story</option>
         </select>
-
         </div>
+
+        <div className="space-y-3 ">
+          <h1 className="text-xl uppercase">Sort by Date</h1>
+        <select onChange={(e)=> dispatch(dateSort(e.target.value))} name="sortDate" className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+        <option value=''>Default</option>
+          <option value='asc'>Old to New</option>
+          <option value='dec'>New to Old</option>
+        </select>
+        </div>
+
+        <div className="space-y-3 ">
+          <h1 className="text-xl uppercase">Sort by Price</h1>
+        <select onChange={(e)=> dispatch(priceSort(e.target.value))} name="sortPrice" className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+        <option value=''>Default</option>
+          <option value='asc'>High to Low</option>
+          <option value='dec'>Low to high</option>
+        </select>
+        </div>
+
       </div>
       <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
         {

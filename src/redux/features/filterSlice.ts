@@ -3,11 +3,15 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 interface Ifilter {
   sort: string,
   search: string,
+  date: string,
+  price: string
 }
 
 const initialState: Ifilter = {
   sort: '',
-  search: ''
+  search: '',
+  date: '',
+  price: ''
 }
 
 const filterSlice = createSlice({
@@ -19,10 +23,16 @@ const filterSlice = createSlice({
     },
     sortType: (state, action: PayloadAction<string>) => {
       state.sort = action.payload
+    },
+    dateSort: (state, action: PayloadAction<string>) => {
+      state.date = action.payload
+    },
+    priceSort: (state, action: PayloadAction<string>) => {
+      state.price = action.payload
     }
   }
 })
 
 
 export default filterSlice.reducer;
-export const { searchParam,sortType } = filterSlice.actions
+export const { searchParam, sortType, dateSort, priceSort } = filterSlice.actions
