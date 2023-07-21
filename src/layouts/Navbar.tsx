@@ -9,15 +9,11 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
 } from '../components/ui/dropdown-menu';
-import { HiOutlineSearch } from 'react-icons/hi';
-import Cart from '../components/Cart';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { auth } from '../lib/firebase';
 import { signOut } from 'firebase/auth';
 import { toast } from '../components/ui/use-toast';
 import { setUser } from '../redux/features/userSlice';
-
-// import logo from '../assets/images/bookLogo2.jpg';
 
 export default function Navbar() {
   const {user} = useAppSelector(state => state.user)
@@ -25,12 +21,10 @@ export default function Navbar() {
   const firstwordAvatar = user.email
 
   const handleLogout = ()=> {
-    console.log('logout done')
-
     signOut(auth).then(() => {
       dispatch(setUser(null))
       toast({
-        description: 'Logout Successful',
+        title: 'Logout Successful',
       });
     })
 
@@ -42,7 +36,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto ">
           <div>
             {/* <img className="h-8" src={logo} alt="log" /> */}
-            <h2 className='text-3xl text-primary font-extrabold'>The booktown</h2>
+            <h2 className='lg:text-3xl text-primary font-extrabold sm:text-sm'>The booktown</h2>
           </div>
           <div>
             <ul className="flex items-center">

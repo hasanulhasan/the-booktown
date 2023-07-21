@@ -22,7 +22,7 @@ export default function LogInFrom() {
     if(user.email && !isLoading){
       navigate('/')
       toast({
-        description: 'Login Successful',
+        title: 'Login Successful',
       });
     }
   },[user.email, isLoading])

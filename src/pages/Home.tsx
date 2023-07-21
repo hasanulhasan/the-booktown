@@ -1,12 +1,24 @@
-// import { Button } from '@/components/ui/button';
 import banner from '../assets/images/bookBanner.png';
 import hero from '../assets/images/hero3.jpg';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import Footer from '../layouts/Footer';
-// import Footer from '@/layouts/Footer';
+import { useGetBooksQuery } from '../redux/features/apiSlice';
+import { useAppSelector } from '../redux/hooks';
+import ProductCard from '../components/ProductCard';
+import Loading from '../components/ui/loading';
 
 export default function Home() {
+  const {data: books, isLoading,isError, error} = useGetBooksQuery(undefined);
+  const {search, sort, date, price} = useAppSelector(state => state.filter)
+
+  let content = null;
+  if (isLoading) content = <Loading/>
+  if (!isLoading && isError) content = <p className='text-lg text-destructive'>There was an error</p>;
+  if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
+  if (!isLoading && !isError && books?.length > 0) {
+    content = books.map(book => <ProductCard key={book.id} book={book} />)}
+
   return (
     <>
       <div className="flex justify-between items-center h-[calc(100vh-80px)] max-w-7xl mx-auto ">
@@ -22,13 +34,13 @@ export default function Home() {
             but we can always find what we desire between the pages of books.”<br/>
             ―Adelise M. Cullens</p>
           </div>
-          <Button className="mt-5">Let's explore</Button>
+          <Button className="mt-5"><Link to="/products">Let's explore</Link></Button>
         </div>
         <div className="relative -right-14">
           <img src={banner} alt="" />
         </div>
       </div>
-      <div className="mb-96">
+      <div className="mb-72">
         <div>
           <img className="mx-auto" src={hero} alt="" />
         </div>
@@ -41,7 +53,17 @@ export default function Home() {
           </Button>
         </div>
       </div>
-      <Footer />
+      <h1 className="text-5xl font-black text-primary uppercase mt-10 text-center mb-8">
+            Our latest collection
+          </h1>
+      <div className="grid grid-cols-12 max-w-7xl mx-auto relative">
+        <div className="col-span-12 grid lg:grid-cols-4 grid-cols-1 gap-10 pb-20">
+        {
+         content
+        }
+      </div>
+      </div>
+
     </>
   );
 }

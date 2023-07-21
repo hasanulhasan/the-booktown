@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { dateSort, priceSort, searchParam, sortType} from '../redux/features/filterSlice';
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
+import Loading from '../components/ui/loading';
 
 export default function Products() {
   const {data: books, isLoading,isError, error} = useGetBooksQuery(undefined);
@@ -12,7 +13,7 @@ export default function Products() {
   const dispatch = useAppDispatch();
 
   let content = null;
-  if (isLoading) content = <p className='text-lg text-destructive'>Loading...</p>;
+  if (isLoading) content = <Loading/>
   if (!isLoading && isError) content = <p className='text-lg text-destructive'>There was an error</p>;
   if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && books?.length > 0) {

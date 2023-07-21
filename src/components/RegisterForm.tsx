@@ -1,21 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import bookIcon from '../assets/images/bookIcon.jpg'
-import { useAppDispatch } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUser } from '../redux/features/userSlice';
 import { toast } from './ui/use-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Toast } from './ui/toast';
 
 export default function RegisterForm() {
   const dispatch = useAppDispatch();
+  const {user, isLoading} = useAppSelector(state=> state.user)
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const handleSubmit = (e)=> {
     e.preventDefault();
-    console.log(email, password)
     dispatch(createUser({email, password}))
   }
+
+  useEffect(()=> {
+    if(user.email && !isLoading){
+      navigate('/')
+      Toast({
+        title: 'Registration Successful',
+      });
+    }
+  },[user.email, isLoading])
 
   return (
     <>

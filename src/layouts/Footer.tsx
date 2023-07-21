@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="flex justify-between">
         <div>
           {/* <img className="h-10" src={logo} alt="Logo" /> */}
-          <h2 className='text-3xl text-secondary font-extrabold'>The booktown</h2>
+          <h2 className='lg:text-3xl text-secondary font-extrabold sm:text-sm'>The booktown</h2>
         </div>
         <div className="flex gap-20">
           <ul className="space-y-2">
