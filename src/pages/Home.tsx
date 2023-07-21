@@ -9,12 +9,12 @@ import ProductCard from '../components/ProductCard';
 import Loading from '../components/ui/loading';
 
 export default function Home() {
-  const {data: books, isLoading,isError, error} = useGetBooksQuery(undefined);
-  const {search, sort, date, price} = useAppSelector(state => state.filter)
+  const {data, isLoading,isError, error} = useGetBooksQuery(undefined);
+  let books = data?.data
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive'>There was an error</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There was an error</p>;
   if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && books?.length > 0) {
     content = books.map(book => <ProductCard key={book.id} book={book} />)}

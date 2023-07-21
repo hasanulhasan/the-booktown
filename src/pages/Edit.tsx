@@ -5,12 +5,13 @@ import Loading from "../components/ui/loading";
 
 export default function Edit() {
   const { id } = useParams();
-  const {data: book, isLoading, isError, error} = useGetBookQuery(id);
+  const {data, isLoading, isError, error} = useGetBookQuery(id);
+  let book = data?.data
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive'>There was an error</p>;
-  if (!isLoading && !isError && book) { content = <EditBook key={book.id} book={book}/> }
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There was an error</p>;
+  if (!isLoading && !isError && book) { content = <EditBook key={book._id} book={book}/> }
 
   return (
     <div>

@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9000/v1/' }),
   tagTypes: ['Books', 'Book', 'wishBooks'],
   endpoints: (builder) => ({
     getBooks: builder.query({
@@ -15,7 +15,7 @@ export const api = createApi({
     }),
     addBook: builder.mutation({
       query: (data) => ({
-        url: '/books',
+        url: '/books/create-book',
         method: 'POST',
         body: data
       }),

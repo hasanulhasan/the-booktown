@@ -9,15 +9,15 @@ export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const {data: book, isLoading, error} = useGetBookQuery(id);
+  const {data, isLoading, error} = useGetBookQuery(id);
+  let book = data?.data
   const [deleteBook] = useDeleteBookMutation()
-
 
   const deleteHandle = (id) => {
     alert('Are you sure to delete this book?')
     deleteBook(id);
     toast({
-      description: 'Book Deleted Successfully',
+      title: 'Book Deleted Successfully',
     });
     navigate('/')
   }
@@ -49,7 +49,7 @@ export default function ProductDetails() {
         </div>
       </div>
       {
-        book?.reviews? <ProductReview reviews={book?.reviews} bookid={book.id}/> : null
+        book?.reviews? <ProductReview reviews={book?.reviews} bookid={book._id}/> : null
       }
       
     </>

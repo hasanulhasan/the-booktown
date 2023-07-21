@@ -12,9 +12,11 @@ interface IProps {
 export default function ProductCard({ book }: IProps) {
   const {email:userEmail} = useAppSelector(state=> state.user.user)
   const [addWishlist] = useAddWishlistMutation();
+  const {title, author, genre, img, price, rating, reviews, status, dateOfPublication} = book;
 
-  const handleAddProduct = (book: IBook) => {
-    addWishlist({...book, userEmail, isRead: false})
+  const handleAddWishlist = () => {
+    // console.log({...book, userEmail, isRead: false})
+    addWishlist({title, author, genre, img, price, rating, reviews, status, dateOfPublication, userEmail, isRead: false})
     toast({
       title: 'Book Added on Wishlist',
     });
@@ -23,7 +25,7 @@ export default function ProductCard({ book }: IProps) {
   return (
     <div>
       <div className="rounded-2xl h-[500px] flex flex-col items-start justify-between p-5 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-2">
-        <Link to={`/product-details/${book.id}`} className="w-full">
+        <Link to={`/product-details/${book._id}`} className="w-full">
           <img src={book?.img} alt="book" className="max-h-64"/>
           <h1 className="text-xl font-semibold">{book?.name}</h1>
         </Link>
@@ -35,7 +37,7 @@ export default function ProductCard({ book }: IProps) {
         {/* <p className="text-sm">
           Availability: {product?.status ? 'In stock' : 'Out of stock'}
         </p> */}
-        <Button variant="default" onClick={() => handleAddProduct(book)}>
+        <Button variant="default" onClick={handleAddWishlist}>
           Add to Wishlist
         </Button>
       </div>

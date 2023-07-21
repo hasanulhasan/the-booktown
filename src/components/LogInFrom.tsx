@@ -42,7 +42,7 @@ export default function LogInFrom() {
                <div>
                 <label className="block" htmlFor="email">Email</label>
                             <input type="text" placeholder="Email"
-                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" value={email} name='email' onChange={(e)=> setEmail(e.target.value)}/>
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" value={email} name='email' onChange={(e)=> setEmail(e.target.value)} required/>
                             {/* <span className="text-xs tracking-wide text-red-600">Email field is required </span> */}
                 </div>
 
@@ -50,7 +50,7 @@ export default function LogInFrom() {
                     <label className="block">Password</label>
                             <input type="password" placeholder="Password"
                                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                value={password} name='password' onChange={(e)=> setPassword(e.target.value)}/>
+                                value={password} name='password' onChange={(e)=> setPassword(e.target.value)} required/>
                 </div>
 
 

@@ -4,16 +4,17 @@ import Loading from "../components/ui/loading";
 import { useAppSelector } from "../redux/hooks";
 
 export const Wishlist = () => {
-  const {data: wishedBooks, isLoading, isError, error} = useGetWishedBooksQuery(null);
+  const {data, isLoading, isError, error} = useGetWishedBooksQuery(null);
+  let wishedBooks = data?.data
   const {user} = useAppSelector(state=> state.user)
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive'>There was an error</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There was an error</p>;
   if (!isLoading && !isError && wishedBooks?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && wishedBooks?.length > 0) {
     content = wishedBooks.filter(book=> book.userEmail === user?.email)
-    .map(book => <WishedCart key={book.id} book={book} />)}
+    .map(book => <WishedCart key={book._id} book={book} />)}
 
   return (
     <>

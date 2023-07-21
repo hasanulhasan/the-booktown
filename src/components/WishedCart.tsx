@@ -5,7 +5,7 @@ import { toast } from "./ui/use-toast";
 
 
 export default function WishedCart({book}) {
-  const {title, author, id, genre, isRead} = book;
+  const {title, author, _id, genre, isRead} = book;
   const [deleteWishedBook] = useDeleteWishedBookMutation();
   const [editWishedBook] = useEditWishedBookMutation()
 
@@ -18,7 +18,7 @@ export default function WishedCart({book}) {
 
   const handleReadChange = (readStatus)=> {
     editWishedBook({
-      id: id,
+      id: _id,
       data: {isRead: readStatus}
     })
     toast({
@@ -44,7 +44,7 @@ export default function WishedCart({book}) {
             </td>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-              <Button onClick={()=> deleteHandle(id)} variant="default">Delete</Button>
+              <Button onClick={()=> deleteHandle(_id)} variant="default">Delete</Button>
             </td>
           </tr>
   )

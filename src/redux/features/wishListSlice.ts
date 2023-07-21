@@ -24,7 +24,7 @@ export const wishListSlice = api.injectEndpoints({
     }),
     addWishlist: builder.mutation({
       query: (data) => ({
-        url: '/wishlist',
+        url: '/wishlist/create-wishlist',
         method: 'POST',
         body: data
       }),

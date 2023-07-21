@@ -6,7 +6,6 @@ import { useToast } from '../components/ui/use-toast';
 export default function Addbook() {
   const navigate = useNavigate();
   const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
-  // const dateOfPublication = new Date();
   const { toast } = useToast();
 
   const [title, setTitle] = useState('');
@@ -34,7 +33,7 @@ export default function Addbook() {
     addBook({ title, author, img, price, genre, rating, status, dateOfPublication, reviews})
     resetForm();
     toast({
-      description: 'Book Added Successfully',
+      title: 'Book Added Successfully',
     });
     navigate('/')
   }

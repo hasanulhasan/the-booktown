@@ -11,6 +11,7 @@ export default function RegisterForm() {
   const {user, isLoading} = useAppSelector(state=> state.user)
   const navigate = useNavigate();
 
+  const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -32,7 +33,7 @@ export default function RegisterForm() {
     <>
     <div>
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="px-10 py-6 mt-4 text-left bg-white shadow-lg">
+        <div className="px-10 py-6 mt-4 text-left bg-white shadow-lg rounded-lg">
             <div className="flex justify-center">
                 <img src={bookIcon} alt="bookIcon" className='max-h-16' />
             </div>
@@ -41,16 +42,22 @@ export default function RegisterForm() {
           <form onSubmit={handleSubmit}>
             <div className="mt-4">
                <div>
-                <label className="block" htmlFor="email">Email</label>
-                            <input type="text" placeholder="Email"
-                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" value={email} name='email' onChange={(e)=> setEmail(e.target.value)}/>
+                <label className="block" htmlFor="name">Name</label>
+                            <input type="text" placeholder="Enter your Name"
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" value={name} name='name' onChange={(e)=> setName(e.target.value)} required/>
                             {/* <span className="text-xs tracking-wide text-red-600">Email field is required </span> */}
-                </div>
+              </div>
+               <div>
+                <label className="block" htmlFor="email">Email</label>
+                            <input type="text" placeholder="Enter your Email"
+                                className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" value={email} name='email' onChange={(e)=> setEmail(e.target.value)} required/>
+                            {/* <span className="text-xs tracking-wide text-red-600">Email field is required </span> */}
+              </div>
                 <div className="mt-4">
                     <label className="block">Password</label>
-                            <input type="password" placeholder="Password"
+                            <input type="password" placeholder="Enter your Password"
                                 className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                value={password} name='password' onChange={(e)=> setPassword(e.target.value)}/>
+                                value={password} name='password' onChange={(e)=> setPassword(e.target.value)} required/>
                 </div>
                 <div className="flex items-baseline justify-between">
                     <button type='submit' className="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Register</button>

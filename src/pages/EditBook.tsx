@@ -7,7 +7,7 @@ export default function EditBook({book}) {
   const navigate = useNavigate();
   const [editbook] = useEditBookMutation();
 
-  const { id: bookid, title: initialTitle, author: initialAuthor, img: initialImg, price: initialPrice, genre: initialGenre, rating: initialRating, status: initialStatus, dateOfPublication: initialDateOfPublication } = book;
+  const { _id: bookid, title: initialTitle, author: initialAuthor, img: initialImg, price: initialPrice, genre: initialGenre, rating: initialRating, status: initialStatus, dateOfPublication: initialDateOfPublication } = book;
   const { toast } = useToast();
 
   const [title, setTitle] = useState(initialTitle);
@@ -37,7 +37,7 @@ export default function EditBook({book}) {
     })
     resetForm();
     toast({
-      description: 'Book Edited Successfully',
+      title: 'Book Edited Successfully',
     });
     navigate('/')
   }

@@ -8,13 +8,14 @@ import { Link } from 'react-router-dom';
 import Loading from '../components/ui/loading';
 
 export default function Products() {
-  const {data: books, isLoading,isError, error} = useGetBooksQuery(undefined);
+  const {data, isLoading,isError, error} = useGetBooksQuery(undefined);
+  let books = data?.data
   const {search, sort, date, price} = useAppSelector(state => state.filter)
   const dispatch = useAppDispatch();
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive'>There was an error</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There was an error</p>;
   if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && books?.length > 0) {
     content = books.filter(book => {
@@ -46,7 +47,7 @@ export default function Products() {
         return (Number((a.dateOfPublication).replace(/[^0-9]/g, '')) - Number((b.dateOfPublication).replace(/[^0-9]/g, ''))) }
       else if (date === 'dec') { return (Number((b.dateOfPublication).replace(/[^0-9]/g, '')) - Number((a.dateOfPublication).replace(/[^0-9]/g, ''))) }
       else { return null }
-    }).filter(book => book.title.toLowerCase().includes(search.toLowerCase())).map(book => <ProductCard key={book.id} book={book} />)}
+    }).filter(book => book.title.toLowerCase().includes(search.toLowerCase())).map(book => <ProductCard key={book._id} book={book} />)}
 
   return (
     <div className="grid grid-cols-12 max-w-7xl mx-auto relative ">
