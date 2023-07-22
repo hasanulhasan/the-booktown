@@ -4,9 +4,12 @@ import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { FiSend } from 'react-icons/fi';
 import { useEditBookMutation } from '../redux/features/apiSlice';
+import { useAppSelector } from '../redux/hooks';
+import { Link } from 'react-router-dom';
 
 
 export default function ProductReview({reviews, bookid}) {
+  const {email} = useAppSelector(state=> state.user.user)
   const [editbook] = useEditBookMutation();
   const [comment, setComment] = useState('');
 
@@ -20,12 +23,19 @@ export default function ProductReview({reviews, bookid}) {
 
   return (
     <div className="max-w-7xl mx-auto mt-5">
-      <div className="flex gap-5 items-center">
+      {
+        email? <>
+        <div className="flex gap-5 items-center">
         <Textarea value={comment} onChange={(e)=> setComment(e.target.value)} className="min-h-[30px]" />
         <Button onClick={reviewHandle} className="rounded-full h-10 w-10 p-2 text-[25px]">
           <FiSend />
         </Button>
       </div>
+        </>: 
+        <>
+        <h1 className='text-center text-lg'>Please Login to leave a comment, <Link to='/login' className='text-green-500'>Click here</Link> to login</h1>
+        </>
+      }
       <div className="mt-10">
         {reviews.map((comment, index) => (
           <div key={index} className="flex gap-3 items-center mb-5">

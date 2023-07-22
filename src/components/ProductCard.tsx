@@ -47,12 +47,13 @@ export default function ProductCard({ book }: IProps) {
         <p>Genre: {book?.genre}</p>
         <p>Price: {book?.price}</p>
         <p>Published: {book?.dateOfPublication}</p>
-        {/* <p className="text-sm">
-          Availability: {product?.status ? 'In stock' : 'Out of stock'}
-        </p> */}
-        <Button variant="default" onClick={()=> handleAddWishlist(_id)}>
+        {
+          userEmail? <>
+          <Button variant="default" onClick={()=> handleAddWishlist(_id)}>
           Add to Wishlist
         </Button>
+          </> : <> </>
+        }
       </div>
     </div>
   );
