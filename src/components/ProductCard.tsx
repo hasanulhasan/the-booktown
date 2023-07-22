@@ -3,7 +3,7 @@ import { toast } from './ui/use-toast';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../redux/hooks';
-import { useAddWishlistMutation } from '../redux/features/wishListSlice';
+import { useAddWishlistMutation, useGetWishedBooksQuery } from '../redux/features/wishListSlice';
 
 interface IProps {
   product: IBook;
@@ -12,14 +12,27 @@ interface IProps {
 export default function ProductCard({ book }: IProps) {
   const {email:userEmail} = useAppSelector(state=> state.user.user)
   const [addWishlist] = useAddWishlistMutation();
-  const {title, author, genre, img, price, rating, reviews, status, dateOfPublication} = book;
+  const {data, isLoading, isError, error} = useGetWishedBooksQuery(null);
+  let wishedBooks = data?.data
+  
 
-  const handleAddWishlist = () => {
-    // console.log({...book, userEmail, isRead: false})
-    addWishlist({title, author, genre, img, price, rating, reviews, status, dateOfPublication, userEmail, isRead: false})
+
+  const {_id, title, author, genre, img, price, rating, reviews, status, dateOfPublication} = book;
+
+
+  const handleAddWishlist = (id) => {
+    let bookCheck = wishedBooks.find(book => (book.title === title))
+    if(!bookCheck){
+      addWishlist({title, author, genre, img, price, rating, reviews, status, dateOfPublication, userEmail, isRead: false})
     toast({
       title: 'Book Added on Wishlist',
     });
+    }
+    else{
+      toast({
+        title: 'Book Already Added',
+      });
+    }
   };
   
   return (
@@ -37,7 +50,7 @@ export default function ProductCard({ book }: IProps) {
         {/* <p className="text-sm">
           Availability: {product?.status ? 'In stock' : 'Out of stock'}
         </p> */}
-        <Button variant="default" onClick={handleAddWishlist}>
+        <Button variant="default" onClick={()=> handleAddWishlist(_id)}>
           Add to Wishlist
         </Button>
       </div>

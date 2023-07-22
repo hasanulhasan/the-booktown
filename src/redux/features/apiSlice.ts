@@ -35,8 +35,15 @@ export const api = createApi({
         body: data
       }),
       invalidatesTags: ['Books', 'Book']
-    })
+    }),
+    addUser: builder.mutation({
+      query: (data) => ({
+        url: '/user/create-user',
+        method: 'POST',
+        body: data
+      })
+    }),
   }),
 })
 
-export const {useGetBooksQuery, useGetBookQuery, useAddBookMutation, useDeleteBookMutation, useEditBookMutation} = api;
+export const {useGetBooksQuery, useGetBookQuery, useAddBookMutation, useDeleteBookMutation, useEditBookMutation, useAddUserMutation} = api;

@@ -5,10 +5,12 @@ import { createUser } from '../redux/features/userSlice';
 import { toast } from './ui/use-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { Toast } from './ui/toast';
+import { useAddUserMutation } from '../redux/features/apiSlice';
 
 export default function RegisterForm() {
   const dispatch = useAppDispatch();
   const {user, isLoading} = useAppSelector(state=> state.user)
+  const [addUser] = useAddUserMutation();
   const navigate = useNavigate();
 
   const [name, setName] = useState();
@@ -22,6 +24,11 @@ export default function RegisterForm() {
 
   useEffect(()=> {
     if(user.email && !isLoading){
+      addUser({
+        name, 
+        eamil: mail,
+        role:'buyer'
+      })
       navigate('/')
       Toast({
         title: 'Registration Successful',
