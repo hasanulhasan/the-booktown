@@ -36,7 +36,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto ">
           <div>
             {/* <img className="h-8" src={logo} alt="log" /> */}
-            <h2 className='lg:text-3xl text-primary font-extrabold sm:text-sm'>The booktown</h2>
+            <Link to='/'><h2 className='lg:text-3xl text-primary font-extrabold sm:text-sm'>The bookTown</h2></Link>
           </div>
           <div>
             <ul className="flex items-center">
@@ -86,15 +86,21 @@ export default function Navbar() {
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
+                    <Link to='/addbook'>
                     <DropdownMenuItem className="cursor-pointer">
-                    <Link to='/addbook'>Add Book</Link>
+                      Add Book
                     </DropdownMenuItem>
+                      </Link>
+                    <Link to='/wishlist'>
                     <DropdownMenuItem className="cursor-pointer">
-                    <Link to='/wishlist'>WishList</Link>
+                      WishList
                     </DropdownMenuItem>
+                      </Link>
+                    <Link to="/">
                     <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
-                    <Link to='/'>Logout</Link>
+                      Logout
                     </DropdownMenuItem>
+                    </Link>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </li>

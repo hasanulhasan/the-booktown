@@ -24,11 +24,9 @@ export default function RegisterForm() {
 
   useEffect(()=> {
     if(user.email && !isLoading){
-      addUser({
-        name, 
-        eamil: mail,
-        role:'buyer'
-      })
+      // addUser({
+      //   name, eamil, role:'buyer'
+      // })
       navigate('/')
       Toast({
         title: 'Registration Successful',

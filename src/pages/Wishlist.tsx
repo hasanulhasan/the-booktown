@@ -10,7 +10,7 @@ export const Wishlist = () => {
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There was an error</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>{error}</p>;
   if (!isLoading && !isError && wishedBooks?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && wishedBooks?.length > 0) {
     content = wishedBooks.filter(book=> book.userEmail === user?.email)

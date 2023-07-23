@@ -11,28 +11,26 @@ interface IProps {
 
 export default function ProductCard({ book }: IProps) {
   const {email:userEmail} = useAppSelector(state=> state.user.user)
+  const {data} = useGetWishedBooksQuery(null);
   const [addWishlist] = useAddWishlistMutation();
-  const {data, isLoading, isError, error} = useGetWishedBooksQuery(null);
   let wishedBooks = data?.data
-  
+  const {title, author, genre, img, price, rating, reviews, status, dateOfPublication} = book;
 
 
-  const {_id, title, author, genre, img, price, rating, reviews, status, dateOfPublication} = book;
-
-
-  const handleAddWishlist = (id) => {
-    let bookCheck = wishedBooks.find(book => (book.title === title))
-    if(!bookCheck){
-      addWishlist({title, author, genre, img, price, rating, reviews, status, dateOfPublication, userEmail, isRead: false})
-    toast({
-      title: 'Book Added on Wishlist',
-    });
-    }
-    else{
+  const handleAddWishlist = () => {
+    let booksTitleCheck = wishedBooks.filter(book => (book.title === title))
+    let booksUserCheck = booksTitleCheck.filter(book => (book.userEmail === userEmail))
+      if(booksUserCheck.length !== 0){
+        toast({
+          title: 'Book Already Added',
+        });
+      }
+      else{
+        addWishlist({title, author, genre, img, price, rating, reviews, status, dateOfPublication, userEmail, isRead: false})
       toast({
-        title: 'Book Already Added',
+        title: 'Book Added on Wishlist',
       });
-    }
+      }
   };
   
   return (
@@ -49,7 +47,7 @@ export default function ProductCard({ book }: IProps) {
         <p>Published: {book?.dateOfPublication}</p>
         {
           userEmail? <>
-          <Button variant="default" onClick={()=> handleAddWishlist(_id)}>
+          <Button variant="default" onClick={handleAddWishlist}>
           Add to Wishlist
         </Button>
           </> : <> </>

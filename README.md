@@ -13,8 +13,8 @@ A Book Selling website
 
 ### `Technology used:`
 
-Front End: Redux Toolkit, RTK Query, TypeScript, Radix UI, Tailwind CSS, React JS, React Router, Firebase. </br>
-Back End: Node Js, Express Js, MongoDB, Mongoose. </br>
+𝑭𝒓𝒐𝒏𝒕 𝑬𝒏𝒅: Redux Toolkit, RTK Query, TypeScript, Radix UI, Tailwind CSS, React JS, React Router, Firebase. </br>
+𝑩𝒂𝒄𝒌 𝑬𝒏𝒅: TypeScript, Node Js, Express Js, MongoDB, Mongoose. </br>
 
 
 ### `Live link` coming soon

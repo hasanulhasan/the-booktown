@@ -10,10 +10,14 @@ export default function WishedCart({book}) {
   const [editWishedBook] = useEditWishedBookMutation()
 
   const deleteHandle = (id)=> {
-    deleteWishedBook(id)
+    const checkAgain = window.confirm('Are you sure to delete this book?')
+    if(checkAgain){
+      deleteWishedBook(id)
     toast({
       title: 'Book Deleted from Wishlist',
     });
+    }
+    
   }
 
   const handleReadChange = (readStatus)=> {

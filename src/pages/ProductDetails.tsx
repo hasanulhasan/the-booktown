@@ -5,6 +5,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDeleteBookMutation, useGetBookQuery } from '../redux/features/apiSlice';
 import { useToast } from '../components/ui/use-toast';
 import { useAppSelector } from '../redux/hooks';
+import { AlertDialog } from '@radix-ui/react-alert-dialog';
+import { useRef, useState } from 'react';
 
 export default function ProductDetails() {
   const {email} = useAppSelector(state=> state.user.user)
@@ -15,13 +17,16 @@ export default function ProductDetails() {
   let book = data?.data
   const [deleteBook] = useDeleteBookMutation()
 
-  const deleteHandle = (id) => {
-    alert('Are you sure to delete this book?')
-    deleteBook(id);
-    toast({
-      title: 'Book Deleted Successfully',
-    });
-    navigate('/')
+
+  const deleteHandle = (id) => {    
+    const checkAgain = window.confirm('Are you sure to delete this book?')
+    if(checkAgain){
+      deleteBook(id);
+      toast({
+        title: 'Book Deleted Successfully',
+      });
+      navigate('/')
+    }
   }
 
   const handleNavigate = () => {

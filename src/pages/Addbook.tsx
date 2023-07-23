@@ -13,7 +13,7 @@ export default function Addbook() {
   const [img, setImg] = useState('');
   const [price, setPrice] = useState('');
   const [genre, setGenre] = useState('Science');
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState('1');
   const [status, setStatus] = useState(true);
   const [dateOfPublication, setDateOfPublication] = useState('');
   const reviews: string[] = [];

@@ -2,9 +2,7 @@ import banner from '../assets/images/bookBanner.png';
 import hero from '../assets/images/hero3.jpg';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
-import Footer from '../layouts/Footer';
 import { useGetBooksQuery } from '../redux/features/apiSlice';
-import { useAppSelector } from '../redux/hooks';
 import ProductCard from '../components/ProductCard';
 import Loading from '../components/ui/loading';
 
@@ -14,10 +12,10 @@ export default function Home() {
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There was an error</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>{error}</p>;
   if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && books?.length > 0) {
-    content = books.map(book => <ProductCard key={book.id} book={book} />)}
+    content = books.map(book => <ProductCard key={book._id} book={book} />)}
 
   return (
     <>

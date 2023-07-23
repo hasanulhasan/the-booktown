@@ -10,7 +10,7 @@ export default function Edit() {
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There was an error</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>{error}</p>;
   if (!isLoading && !isError && book) { content = <EditBook key={book._id} book={book}/> }
 
   return (
