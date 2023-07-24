@@ -3,13 +3,13 @@ import { useGetBooksQuery } from '../redux/features/apiSlice';
 import { Input } from '../components/ui/input';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { dateSort, priceSort, searchParam, sortType} from '../redux/features/filterSlice';
-import { Button } from '../components/ui/button';
-import { Link } from 'react-router-dom';
 import Loading from '../components/ui/loading';
+import { IBook } from '../components/types/globalTypes';
 
 export default function Products() {
   const {data, isLoading,isError, error} = useGetBooksQuery(undefined);
-  let books = data?.data
+  const books:IBook[] = data?.data
+  
   const {search, sort, date, price} = useAppSelector(state => state.filter)
   const dispatch = useAppDispatch();
 
@@ -18,7 +18,7 @@ export default function Products() {
   if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>{error}</p>;
   if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && books?.length > 0) {
-    content = books.filter(book => {
+    content = books.filter((book): IBook[] => {
       if (sort === 'Science') {
         return (book.genre === sort)
       }

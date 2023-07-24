@@ -1,11 +1,12 @@
 import WishedCart from "../components/WishedCart";
 import { useGetWishedBooksQuery } from "../redux/features/wishListSlice";
-import Loading from "../components/ui/loading";
+import Loading from "../components/ui/Loading";
 import { useAppSelector } from "../redux/hooks";
+import { IWishBook } from "../components/types/globalTypes";
 
 export const Wishlist = () => {
   const {data, isLoading, isError, error} = useGetWishedBooksQuery(null);
-  let wishedBooks = data?.data
+  const wishedBooks:IWishBook[] = data?.data
   const {user} = useAppSelector(state=> state.user)
 
   let content = null;

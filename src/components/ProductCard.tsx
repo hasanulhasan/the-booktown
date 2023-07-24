@@ -6,7 +6,7 @@ import { useAppSelector } from '../redux/hooks';
 import { useAddWishlistMutation, useGetWishedBooksQuery } from '../redux/features/wishListSlice';
 
 interface IProps {
-  product: IBook;
+  book: IBook;
 }
 
 export default function ProductCard({ book }: IProps) {
@@ -14,7 +14,7 @@ export default function ProductCard({ book }: IProps) {
   const {data} = useGetWishedBooksQuery(null);
   const [addWishlist] = useAddWishlistMutation();
   let wishedBooks = data?.data
-  const {title, author, genre, img, price, rating, reviews, status, dateOfPublication} = book;
+  const {_id, title, author, genre, img, price, rating, reviews, status, dateOfPublication} = book;
 
 
   const handleAddWishlist = () => {

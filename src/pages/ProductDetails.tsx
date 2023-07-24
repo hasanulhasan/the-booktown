@@ -8,13 +8,17 @@ import { useAppSelector } from '../redux/hooks';
 import { AlertDialog } from '@radix-ui/react-alert-dialog';
 import { useRef, useState } from 'react';
 
+interface IId{
+  id: string;
+}
+
 export default function ProductDetails() {
   const {email} = useAppSelector(state=> state.user.user)
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
   const {data, isLoading, error} = useGetBookQuery(id);
-  let book = data?.data
+  const book = data?.data
   const [deleteBook] = useDeleteBookMutation()
 
 

@@ -1,5 +1,10 @@
-import { api } from "./apiSlice";
+import { IWishBook } from "../../components/types/globalTypes";
+import { PostData, api } from "./apiSlice";
 
+interface IEdit {
+  id: string;
+  data: any;
+}
 
 export const wishListSlice = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,14 +12,14 @@ export const wishListSlice = api.injectEndpoints({
       query: () => '/wishlist',
       providesTags: ['wishBooks']
     }),
-    deleteWishedBook: builder.mutation({
+    deleteWishedBook: builder.mutation<IWishBook,string>({
       query: (id) => ({
         url: `/wishlist/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['wishBooks']
     }),
-    editWishedBook: builder.mutation({
+    editWishedBook: builder.mutation<IWishBook, PostData>({
       query: ({ id, data }) => ({
         url: `/wishlist/${id}`,
         method: 'PATCH',
@@ -23,7 +28,7 @@ export const wishListSlice = api.injectEndpoints({
       invalidatesTags: ['wishBooks']
     }),
     addWishlist: builder.mutation({
-      query: (data) => ({
+      query: (data:IWishBook) => ({
         url: '/wishlist/create-wishlist',
         method: 'POST',
         body: data

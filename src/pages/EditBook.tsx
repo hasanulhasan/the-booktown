@@ -2,8 +2,13 @@ import React, { useState } from 'react'
 import { useAddBookMutation, useEditBookMutation, useGetBookQuery } from '../redux/features/apiSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useToast } from '../components/ui/use-toast';
+import { IBook } from '../components/types/globalTypes';
 
-export default function EditBook({book}) {
+interface IProps {
+  book: IBook;
+}
+
+export default function EditBook({book}: IProps) {
   const navigate = useNavigate();
   const [editbook] = useEditBookMutation();
 

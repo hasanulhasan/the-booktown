@@ -2,11 +2,12 @@ import { useParams } from "react-router-dom";
 import EditBook from "./EditBook";
 import { useGetBookQuery } from "../redux/features/apiSlice";
 import Loading from "../components/ui/loading";
+import { IBook } from "../components/types/globalTypes";
 
 export default function Edit() {
   const { id } = useParams();
   const {data, isLoading, isError, error} = useGetBookQuery(id);
-  let book = data?.data
+  const book:IBook[] = data?.data
 
   let content = null;
   if (isLoading) content = <Loading/>

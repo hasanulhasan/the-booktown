@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { useGetBooksQuery } from '../redux/features/apiSlice';
 import ProductCard from '../components/ProductCard';
-import Loading from '../components/ui/loading';
+import Loading from '../components/ui/Loading';
+import { IBook } from '../components/types/globalTypes';
 
 export default function Home() {
   const {data, isLoading,isError, error} = useGetBooksQuery(undefined);
-  let books = data?.data
+  const books:IBook[] = data?.data
 
   let content = null;
   if (isLoading) content = <Loading/>

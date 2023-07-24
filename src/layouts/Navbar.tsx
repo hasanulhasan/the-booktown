@@ -18,9 +18,10 @@ import { setUser } from '../redux/features/userSlice';
 export default function Navbar() {
   const {user} = useAppSelector(state => state.user)
   const dispatch = useAppDispatch();
-  const firstwordAvatar = user.email
+  const firstwordAvatar:string = user.email
 
   const handleLogout = ()=> {
+
     signOut(auth).then(() => {
       dispatch(setUser(null))
       toast({
@@ -49,29 +50,6 @@ export default function Navbar() {
                 <Button variant="link" asChild>
                   <Link to="/products">Books</Link>
                 </Button>
-              </li>
-              {/* {
-                user.email &&  
-                (<>
-                <li>
-                <Button variant="link" asChild>
-                  <Link to="/checkout">Checkout</Link>
-                </Button>
-                </li>
-                </>)
-              } */}
-              {/* <li>
-                <Button variant="link" asChild>
-                  <Link to="/checkout">Checkout</Link>
-                </Button>
-              </li> */}
-              {/* <li>
-                <Button variant="ghost">
-                  <HiOutlineSearch size="25" />
-                </Button>
-              </li> */}
-              <li>
-                {/* <Cart /> */}
               </li>{
                 user?.email?  
                 <>
