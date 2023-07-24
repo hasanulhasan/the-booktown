@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
@@ -13,8 +16,8 @@ export default function ProductReview({reviews, bookid}) {
   const [editbook] = useEditBookMutation();
   const [comment, setComment] = useState('');
 
-  const reviewHandle = ()=> {
-    editbook({
+  const reviewHandle = async ()=> {
+    await editbook({
         id: bookid,
         data: { reviews:[...reviews, comment] }
       })
@@ -37,7 +40,7 @@ export default function ProductReview({reviews, bookid}) {
         </>
       }
       <div className="mt-10">
-        {reviews.map((comment, index) => (
+        {reviews.map((comment:string | null, index: null) => (
           <div key={index} className="flex gap-3 items-center mb-5">
             <Avatar>
               <AvatarImage src='https://ui-avatars.com/api/?name=x'/>

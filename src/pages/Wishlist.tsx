@@ -1,17 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import WishedCart from "../components/WishedCart";
 import { useGetWishedBooksQuery } from "../redux/features/wishListSlice";
 import Loading from "../components/ui/Loading";
 import { useAppSelector } from "../redux/hooks";
 import { IWishBook } from "../components/types/globalTypes";
 
+// interface IData{
+//     status: string;
+//     data: IWishBook[]  
+// }
+
 export const Wishlist = () => {
   const {data, isLoading, isError, error} = useGetWishedBooksQuery(null);
+  
   const wishedBooks:IWishBook[] = data?.data
   const {user} = useAppSelector(state=> state.user)
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>{error}</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There is an error</p>;
   if (!isLoading && !isError && wishedBooks?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && wishedBooks?.length > 0) {
     content = wishedBooks.filter(book=> book.userEmail === user?.email)
@@ -53,15 +61,12 @@ export const Wishlist = () => {
                           Action
                         </th>
           </tr>
-          
         </thead>
-
         <tbody>
           {
             content
           }
         </tbody>
-
       </table>
     </div>
   </div>

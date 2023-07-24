@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import ProductCard from '../components/ProductCard';
 import { useGetBooksQuery } from '../redux/features/apiSlice';
 import { Input } from '../components/ui/input';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { dateSort, priceSort, searchParam, sortType} from '../redux/features/filterSlice';
-import Loading from '../components/ui/loading';
+import Loading from '../components/ui/Loading';
 import { IBook } from '../components/types/globalTypes';
 
 export default function Products() {
@@ -15,10 +17,10 @@ export default function Products() {
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>{error}</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There is an error</p>;
   if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && books?.length > 0) {
-    content = books.filter((book): IBook[] => {
+    content = books.filter((book: IBook) => {
       if (sort === 'Science') {
         return (book.genre === sort)
       }
@@ -40,13 +42,13 @@ export default function Products() {
     }).sort((a, b) => {
       if (price === 'asc') { return (Number(a.price) - Number(b.price)) }
       else if (price === 'dec') { return (Number(b.price) - Number(a.price))  }
-      else { return null }
+      else { return 0 }
     })
     .sort((a, b) => {
       if (date === 'asc') {
         return (Number((a.dateOfPublication).replace(/[^0-9]/g, '')) - Number((b.dateOfPublication).replace(/[^0-9]/g, ''))) }
       else if (date === 'dec') { return (Number((b.dateOfPublication).replace(/[^0-9]/g, '')) - Number((a.dateOfPublication).replace(/[^0-9]/g, ''))) }
-      else { return null }
+      else { return 0 }
     }).filter(book => book.title.toLowerCase().includes(search.toLowerCase())).map(book => <ProductCard key={book._id} book={book} />)}
 
   return (

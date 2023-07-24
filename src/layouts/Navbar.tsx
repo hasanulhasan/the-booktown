@@ -1,13 +1,11 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Link } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Button } from '../components/ui/button';
 import { DropdownMenuSeparator } from '../components/ui/dropdown-menu';
 import { DropdownMenuLabel } from '../components/ui/dropdown-menu';
 import {
-  DropdownMenuItem,
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
+  DropdownMenuItem,DropdownMenu,DropdownMenuTrigger,DropdownMenuContent,
 } from '../components/ui/dropdown-menu';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { auth } from '../lib/firebase';
@@ -18,11 +16,10 @@ import { setUser } from '../redux/features/userSlice';
 export default function Navbar() {
   const {user} = useAppSelector(state => state.user)
   const dispatch = useAppDispatch();
-  const firstwordAvatar:string = user.email
 
-  const handleLogout = ()=> {
+  const handleLogout = async ()=> {
 
-    signOut(auth).then(() => {
+    await signOut(auth).then(() => {
       dispatch(setUser(null))
       toast({
         title: 'Logout Successful',
@@ -57,7 +54,7 @@ export default function Navbar() {
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none">
                     <Avatar>
-                      <AvatarImage src={`https://ui-avatars.com/api/?name=${firstwordAvatar}`} />
+                      <AvatarImage src={`https://ui-avatars.com/api/?name=${user.email}`} />
                       <AvatarFallback>X</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>

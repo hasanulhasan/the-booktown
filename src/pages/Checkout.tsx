@@ -1,23 +1,15 @@
-import { Button } from '@/components/ui/button';
-import { DatePickerWithPresets } from '@/components/ui/datePickerWithPreset';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Switch } from '@/components/ui/switch';
-import { Textarea } from '@/components/ui/textarea';
-import { IBook } from '@/types/globalTypes';
+import { Button } from '../components/ui/button';
+// import { DatePickerWithPresets } from '../components/ui/datePickerWithPreset';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
+import { Switch } from '../components/ui/switch';
+import { Textarea } from '../components/ui/textarea';
 
 import { useState } from 'react';
 
 export default function Checkout() {
   const [scheduled, setScheduled] = useState<boolean>(false);
-
-  //! Dummy Data
-
-  const products: IBook[] = [];
-
-  //! **
-
   return (
     <div className="flex justify-center items-center h-[calc(100vh-80px)] gap-10 text-primary">
       <div className="max-w-3xl w-full">
@@ -67,7 +59,7 @@ export default function Checkout() {
               <Label className="mb-3" htmlFor="name">
                 Date
               </Label>
-              <DatePickerWithPresets disabled={!scheduled} />
+              {/* <DatePickerWithPresets disabled={!scheduled} /> */}
             </div>
           </div>
           <div className="mt-3">
@@ -99,7 +91,7 @@ export default function Checkout() {
         <h1 className="mb-2">Order Summery</h1>
         <div className="border border-gray-300 rounded-md h-[60vh] p-10 flex flex-col">
           <div className="flex-grow  mb-2 space-y-2 overflow-auto">
-            {products.map((product) => (
+            {/* {products.map((product) => (
               <div className="flex justify-between items-center bg-gray-100 p-1 rounded-lg">
                 <div className="flex items-center">
                   <img
@@ -116,7 +108,7 @@ export default function Checkout() {
                   <h1 className="text-4xl mr-5">{product.quantity}</h1>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
           <div className="space-y-2">
             <div className="flex justify-between text-lg">

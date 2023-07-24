@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import banner from '../assets/images/bookBanner.png';
 import hero from '../assets/images/hero3.jpg';
 import { Link } from 'react-router-dom';
@@ -13,7 +15,7 @@ export default function Home() {
 
   let content = null;
   if (isLoading) content = <Loading/>
-  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>{error}</p>;
+  if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There is an error</p>;
   if (!isLoading && !isError && books?.length === 0) content = <p className='text-lg text-destructive'>There is no Book</p>;
   if (!isLoading && !isError && books?.length > 0) {
     content = books.map(book => <ProductCard key={book._id} book={book} />)}

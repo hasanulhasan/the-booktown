@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from 'react'
 import { useAddBookMutation } from '../redux/features/apiSlice';
 import { useNavigate } from 'react-router-dom';
@@ -5,7 +9,7 @@ import { useToast } from '../components/ui/use-toast';
 
 export default function Addbook() {
   const navigate = useNavigate();
-  const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
+  const [addBook] = useAddBookMutation();
   const { toast } = useToast();
 
   const [title, setTitle] = useState('');
@@ -14,11 +18,11 @@ export default function Addbook() {
   const [price, setPrice] = useState('');
   const [genre, setGenre] = useState('Science');
   const [rating, setRating] = useState('1');
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState<boolean>(true);
   const [dateOfPublication, setDateOfPublication] = useState('');
   const reviews: string[] = [];
   
-  const resetForm = () => {
+  const resetForm = ():void => {
     setTitle('')
     setAuthor('')
     setImg('')
@@ -28,9 +32,9 @@ export default function Addbook() {
     setStatus(true)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    addBook({ title, author, img, price, genre, rating, status, dateOfPublication, reviews})
+    await addBook({ title, author, img, price, genre, rating, status, dateOfPublication, reviews})
     resetForm();
     toast({
       title: 'Book Added Successfully',
@@ -106,7 +110,7 @@ export default function Addbook() {
 
               <div className="md:col-span-2">
                   <label htmlFor="date">Published Date</label>
-                  <input className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" type="date" name="lwsJobDeadline" id="lwsJobDeadline" value={dateOfPublication} onChange={(e) => setDateOfPublication(e.target.value)} required/>
+                  <input className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" type="date" name="date" id="lwsJobDeadline" value={dateOfPublication} onChange={(e) => setDateOfPublication(e.target.value)} required/>
               </div>
 
               <div className="md:col-span-5">

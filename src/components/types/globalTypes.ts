@@ -1,5 +1,5 @@
 export interface IBook {
-  _id: string;
+  _id?: string;
   title: string;
   author: string;
   img: string;
@@ -12,7 +12,7 @@ export interface IBook {
 }
 
 export interface IWishBook {
-  _id: string;
+  _id?: string;
   title: string;
   author: string;
   img: string;
@@ -23,7 +23,7 @@ export interface IWishBook {
   status: boolean;
   reviews?: string[];
   isRead: boolean;
-  userEmail: string;
+  userEmail: string | null;
 }
 
 export interface IUser {

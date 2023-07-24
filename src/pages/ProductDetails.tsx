@@ -1,31 +1,33 @@
-import ProductReview from '@/components/ProductReview';
-import { Button } from '@/components/ui/button';
-import { IBook } from '@/types/globalTypes';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDeleteBookMutation, useGetBookQuery } from '../redux/features/apiSlice';
 import { useToast } from '../components/ui/use-toast';
 import { useAppSelector } from '../redux/hooks';
-import { AlertDialog } from '@radix-ui/react-alert-dialog';
-import { useRef, useState } from 'react';
-
-interface IId{
-  id: string;
-}
+import ProductReview from '../components/ProductReview';
+import { Button } from '../components/ui/button';
 
 export default function ProductDetails() {
   const {email} = useAppSelector(state=> state.user.user)
-  const { id } = useParams();
+  const id:any = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const {data, isLoading, error} = useGetBookQuery(id);
-  const book = data?.data
+  const {data} = useGetBookQuery(id.id);
+  const book = data?.data;
   const [deleteBook] = useDeleteBookMutation()
 
 
-  const deleteHandle = (id) => {    
+  const deleteHandle = async (id:string) => {    
     const checkAgain = window.confirm('Are you sure to delete this book?')
     if(checkAgain){
-      deleteBook(id);
+      try {
+        await deleteBook(id);
+      } catch (error) {
+        console.log(error)
+      }
       toast({
         title: 'Book Deleted Successfully',
       });
@@ -34,7 +36,7 @@ export default function ProductDetails() {
   }
 
   const handleNavigate = () => {
-      navigate(`/editbook/${id}`)
+      navigate(`/editbook/${id.id}`)
   }
 
   return (
@@ -58,7 +60,7 @@ export default function ProductDetails() {
         {
           email? <><div className='flex'>
           <Button onClick={handleNavigate}>Edit Book</Button>
-          <Button onClick={() => deleteHandle(id)} className="ms-2" variant="destructive">Delete Book</Button>
+          <Button onClick={() => deleteHandle(id.id)} className="ms-2" variant="destructive">Delete Book</Button>
           </div></>: <></>
         }
         </div>

@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useEffect, useState } from 'react'
 import bookIcon from '../assets/images/bookIcon.jpg'
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUser } from '../redux/features/userSlice';
-import { toast } from './ui/use-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { Toast } from './ui/toast';
 import { useAddUserMutation } from '../redux/features/apiSlice';
@@ -10,16 +10,16 @@ import { useAddUserMutation } from '../redux/features/apiSlice';
 export default function RegisterForm() {
   const dispatch = useAppDispatch();
   const {user, isLoading} = useAppSelector(state=> state.user)
-  const [addUser] = useAddUserMutation();
+  // const [addUser] = useAddUserMutation();
   const navigate = useNavigate();
 
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [name, setName] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string | number>();
 
-  const handleSubmit = (e)=> {
+  const handleSubmit = async (e: { preventDefault: () => void; })=> {
     e.preventDefault();
-    dispatch(createUser({email, password}))
+    await dispatch(createUser({email, password}))
   }
 
   useEffect(()=> {

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useEffect, useState } from 'react';
 import bookIcon from '../assets/images/bookIcon.jpg'
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -5,16 +8,21 @@ import { loginUser } from '../redux/features/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from './ui/use-toast';
 
+// interface ICredential {
+//   email: string,
+//   password: string
+// }
+
 export default function LogInFrom() {
   const dispatch = useAppDispatch();
   const {user, isLoading} = useAppSelector(state => state.user)
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string | number>();
   const navigate = useNavigate();
 
-  const handleSubmit = (e)=> {
+  const handleSubmit = async (e: { preventDefault: () => void; })=> {
     e.preventDefault();
-    dispatch(loginUser({email,password}))
+    await dispatch( loginUser({email,password}))
   }
 
   useEffect(()=> {
