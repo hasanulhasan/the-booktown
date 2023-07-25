@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useDeleteWishedBookMutation, useEditWishedBookMutation } from "../redux/features/wishListSlice";
 import { IWishBook } from "./types/globalTypes";
@@ -7,10 +8,6 @@ import { toast } from "./ui/use-toast";
 
 interface IProps {
   book: IWishBook;
-}
-interface IEditStatus{
-  id: string;
-  data: {isRead: boolean}
 }
 
 export default function WishedCart({book}:IProps) {

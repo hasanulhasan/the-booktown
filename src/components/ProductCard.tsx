@@ -18,7 +18,7 @@ export default function ProductCard({ book }: IProps) {
   const {data} = useGetWishedBooksQuery(null);
   const [addWishlist] = useAddWishlistMutation();
   const wishedBooks:IWishBook[] = data?.data
-  const {_id, title, author, genre, img, price, rating, reviews, status, dateOfPublication} = book;
+  const {title, author, genre, img, price, rating, reviews, status, dateOfPublication} = book;
 
 
   const handleAddWishlist = async () => {

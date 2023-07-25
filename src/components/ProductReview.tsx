@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -10,8 +11,12 @@ import { useEditBookMutation } from '../redux/features/apiSlice';
 import { useAppSelector } from '../redux/hooks';
 import { Link } from 'react-router-dom';
 
+interface IProps {
+  reviews?: string[] | undefined;
+  bookid: string | undefined
+}
 
-export default function ProductReview({reviews, bookid}) {
+export default function ProductReview({reviews, bookid}: IProps) {
   const {email} = useAppSelector(state=> state.user.user)
   const [editbook] = useEditBookMutation();
   const [comment, setComment] = useState('');
@@ -19,7 +24,7 @@ export default function ProductReview({reviews, bookid}) {
   const reviewHandle = async ()=> {
     await editbook({
         id: bookid,
-        data: { reviews:[...reviews, comment] }
+        data: { reviews:[...reviews!, comment] }
       })
       setComment('');
   }
@@ -40,15 +45,20 @@ export default function ProductReview({reviews, bookid}) {
         </>
       }
       <div className="mt-10">
-        {reviews.map((comment:string | null, index: null) => (
-          <div key={index} className="flex gap-3 items-center mb-5">
-            <Avatar>
-              <AvatarImage src='https://ui-avatars.com/api/?name=x'/>
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <p>{comment}</p>
-          </div>
-        ))}
+      { 
+        reviews?.length !== 0 &&
+        (
+          reviews!.map((comment:string) => (
+            <div className="flex gap-3 items-center mb-5">
+              <Avatar>
+                <AvatarImage src='https://ui-avatars.com/api/?name=x'/>
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <p>{comment}</p>
+            </div>
+          ))
+        )
+      }
       </div>
     </div>
   );

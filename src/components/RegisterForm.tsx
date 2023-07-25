@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useEffect, useState } from 'react'
 import bookIcon from '../assets/images/bookIcon.jpg'
@@ -5,17 +8,15 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { createUser } from '../redux/features/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { Toast } from './ui/toast';
-import { useAddUserMutation } from '../redux/features/apiSlice';
 
 export default function RegisterForm() {
   const dispatch = useAppDispatch();
   const {user, isLoading} = useAppSelector(state=> state.user)
-  // const [addUser] = useAddUserMutation();
   const navigate = useNavigate();
 
   const [name, setName] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string | number>();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<any>('');
 
   const handleSubmit = async (e: { preventDefault: () => void; })=> {
     e.preventDefault();
@@ -24,9 +25,6 @@ export default function RegisterForm() {
 
   useEffect(()=> {
     if(user.email && !isLoading){
-      // addUser({
-      //   name, eamil, role:'buyer'
-      // })
       navigate('/')
       Toast({
         title: 'Registration Successful',

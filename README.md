@@ -2,7 +2,7 @@
 A Book Selling website
 
 ## Project feature
-1- User can show books, book details and see reviews</br>
+1- User can see books, book details and see reviews</br>
 2- User can filter books by Search and Genre</br>
 3- User can sort books by Price and Date of Published</br>
 4- Authenticated User can Add book</br>

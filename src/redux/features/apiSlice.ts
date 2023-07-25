@@ -1,9 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IBook, IUser } from '../../components/types/globalTypes';
 
-export interface PostData {
-  id: string
-  data: string | number | boolean
+interface PostData {
+  id: string | undefined
+  data: any
+}
+
+interface IData {
+  success: string;
+  data: IBook;
 }
 
 export const api = createApi({
@@ -15,7 +23,7 @@ export const api = createApi({
       query: () => '/books',
       providesTags: ['Books']
     }),
-    getBook: builder.query<IBook, string>({
+    getBook: builder.query<IData, string>({
       query: (id) => `/books/${id}`,
       providesTags: ['Book']
     }),

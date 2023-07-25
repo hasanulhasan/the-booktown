@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import {auth} from '../../lib/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
@@ -12,8 +14,8 @@ interface IUser {
 }
 
 interface ICredential {
-  email: string,
-  password: string
+  email: string;
+  password: any;
 }
 
 const initialState: IUser = {

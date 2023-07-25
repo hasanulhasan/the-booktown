@@ -10,7 +10,7 @@ import Loading from '../components/ui/Loading';
 import { IBook } from '../components/types/globalTypes';
 
 export default function Home() {
-  const {data, isLoading,isError, error} = useGetBooksQuery(undefined);
+  const {data, isLoading,isError} = useGetBooksQuery(undefined);
   const books:IBook[] = data?.data
 
   let content = null;

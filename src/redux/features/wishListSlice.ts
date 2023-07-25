@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { IWishBook } from "../../components/types/globalTypes";
-import { PostData, api } from "./apiSlice";
+import { api } from "./apiSlice";
 
-interface IEdit {
-  id: string;
-  data: any;
+interface PostData {
+  id: string | undefined
+  data: {isRead: boolean}
 }
 
 export const wishListSlice = api.injectEndpoints({

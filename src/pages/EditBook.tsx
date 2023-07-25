@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { useState } from 'react'
-import { useAddBookMutation, useEditBookMutation, useGetBookQuery } from '../redux/features/apiSlice';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react'
+import {useEditBookMutation} from '../redux/features/apiSlice';
+import { useNavigate} from 'react-router-dom';
 import { useToast } from '../components/ui/use-toast';
 import { IBook } from '../components/types/globalTypes';
 
@@ -15,7 +15,7 @@ export default function EditBook({book}: IProps) {
   const navigate = useNavigate();
   const [editbook] = useEditBookMutation();
 
-  const { _id: bookid, title: initialTitle, author: initialAuthor, img: initialImg, price: initialPrice, genre: initialGenre, rating: initialRating, status: initialStatus, dateOfPublication: initialDateOfPublication } = book;
+  const { _id: bookid, title: initialTitle, author: initialAuthor, img: initialImg, price: initialPrice, genre: initialGenre, rating: initialRating, status: initialStatus, dateOfPublication: initialDateOfPublication,reviews } = book;
   const { toast } = useToast();
 
   const [title, setTitle] = useState(initialTitle);
@@ -39,11 +39,14 @@ export default function EditBook({book}: IProps) {
 
   const handleSubmit = async(e: { preventDefault: () => void; })=> {
     e.preventDefault();
-    
-    await editbook({
-      id: bookid,
-      data: {title, author, img, price, genre, rating, status, dateOfPublication}
-    })
+    try {
+      await editbook({
+        id: bookid,
+        data: {title, author, img, price, genre, rating, status, dateOfPublication, reviews}
+      })
+    } catch (error) {
+      console.log(error)
+    }
     resetForm();
     toast({
       title: 'Book Edited Successfully',
@@ -62,8 +65,9 @@ export default function EditBook({book}: IProps) {
       <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
         <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
           <div className="text-gray-600">
-            <p className="font-medium text-lg">Edit Book info</p>
-            <p>Please fill out carefully</p>
+            <p className="font-medium text-lg">{title}</p>
+            <p>{author}</p>
+            <img src={img} alt="book" className='md:hidden sm: hidden lg:block w-4/5 mt-2'/>
           </div>
 
           <form onSubmit={handleSubmit} className="lg:col-span-2">
@@ -110,18 +114,16 @@ export default function EditBook({book}: IProps) {
               </div>
 
               <div className="md:col-span-2">
-              <label htmlFor="status">Status</label>
-                <select name="status" id="status" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={status} onChange={() => setStatus(!status)} required>
-                  <option value='true'>In Stock</option>
-                  <option value='false'>Out Of Stock</option>
-                </select>
-              </div>
-
-              <div className="md:col-span-2">
                   <label htmlFor="date">Published Date</label>
                   <input className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" type="date" name="date" id="lwsJobDeadline" value={dateOfPublication} onChange={(e) => setDateOfPublication(e.target.value)} required/>
               </div>
 
+              <div className="md:col-span-5">
+                <div className="inline-flex items-center">
+                  <input type="checkbox" name="ok" id="ok" className="form-checkbox" checked={status} onChange={() => setStatus(!status)}/>
+                  <label htmlFor="ok" className="ml-2">In Stock</label>
+                </div>
+              </div>
 
               <div className="md:col-span-5">
                 <div className="inline-flex items-center">

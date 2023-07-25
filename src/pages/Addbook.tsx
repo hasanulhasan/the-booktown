@@ -18,7 +18,7 @@ export default function Addbook() {
   const [price, setPrice] = useState('');
   const [genre, setGenre] = useState('Science');
   const [rating, setRating] = useState('1');
-  const [status, setStatus] = useState<boolean>(true);
+  const [status, setStatus] = useState<boolean>(false);
   const [dateOfPublication, setDateOfPublication] = useState('');
   const reviews: string[] = [];
   
@@ -101,16 +101,15 @@ export default function Addbook() {
               </div>
 
               <div className="md:col-span-2">
-                <label htmlFor="status">Status</label>
-                <select name="status" id="status" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={status} onChange={(e) => setStatus(!status)} required>
-                  <option value='true'>In Stock</option>
-                  <option value='false'>Out Of Stock</option>
-                </select>
-              </div>
-
-              <div className="md:col-span-2">
                   <label htmlFor="date">Published Date</label>
                   <input className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" type="date" name="date" id="lwsJobDeadline" value={dateOfPublication} onChange={(e) => setDateOfPublication(e.target.value)} required/>
+              </div>
+
+              <div className="md:col-span-5">
+                <div className="inline-flex items-center">
+                  <input type="checkbox" name="ok" id="ok" className="form-checkbox" checked={status} onChange={() => setStatus(!status)}/>
+                  <label htmlFor="ok" className="ml-2">In Stock</label>
+                </div>
               </div>
 
               <div className="md:col-span-5">

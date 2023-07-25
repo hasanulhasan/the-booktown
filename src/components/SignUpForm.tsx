@@ -1,16 +1,11 @@
 'use client';
-
 import * as React from 'react';
-
 import { cn } from './../lib/utils';
-import { Button } from './../components/ui/button';
-import { Input } from './..//components/ui/input';
-import { Label } from './..//components/ui/label';
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function SignupForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  // const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   // async function onSubmit(event: React.SyntheticEvent) {
   //   event.preventDefault();
@@ -23,7 +18,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
 
   return (
     <div className={cn('grid gap-6', className)} {...props}>
-      <form>
+      {/* <form>
         <div className="grid gap-2">
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
@@ -73,7 +68,7 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
       </div>
       <Button variant="outline" type="button" disabled={isLoading}>
         {isLoading ? <p>loading</p> : <p>Google</p>}
-      </Button>
+      </Button> */}
     </div>
   );
 }

@@ -12,7 +12,7 @@ import { IWishBook } from "../components/types/globalTypes";
 // }
 
 export const Wishlist = () => {
-  const {data, isLoading, isError, error} = useGetWishedBooksQuery(null);
+  const {data, isLoading, isError} = useGetWishedBooksQuery(null);
   
   const wishedBooks:IWishBook[] = data?.data
   const {user} = useAppSelector(state=> state.user)

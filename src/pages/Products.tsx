@@ -9,7 +9,7 @@ import Loading from '../components/ui/Loading';
 import { IBook } from '../components/types/globalTypes';
 
 export default function Products() {
-  const {data, isLoading,isError, error} = useGetBooksQuery(undefined);
+  const {data, isLoading,isError} = useGetBooksQuery(undefined);
   const books:IBook[] = data?.data
   
   const {search, sort, date, price} = useAppSelector(state => state.filter)

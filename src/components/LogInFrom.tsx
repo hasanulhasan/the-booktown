@@ -16,8 +16,8 @@ import { toast } from './ui/use-toast';
 export default function LogInFrom() {
   const dispatch = useAppDispatch();
   const {user, isLoading} = useAppSelector(state => state.user)
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string | number>();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e: { preventDefault: () => void; })=> {
