@@ -44,22 +44,20 @@ export default function ProductDetails({book}:IProps) {
 
   return (
     <>
-      <div className="flex max-w-7xl mx-auto items-center border-b border-gray-300">
-        <div className="w-[50%]">
+      <div className="lg:flex max-w-7xl mx-auto items-center border-b border-gray-300 space-x-20">
+        <div className="w-2/5 mx-auto">
           <img src={img} alt="book"/>
         </div>
-        <div className="w-[50%] space-y-3">
+        <div className="w-3/5 space-y-2 pb-2">
           <h1 className="text-3xl font-semibold">{title}</h1>
           <p className="text-xl font-semibold">Author: {author}</p>
           <p className="text-xl">Rating: {rating}</p>
           <p className="text-xl">Genre: {genre}</p>
           <p className="text-xl">Published: {dateOfPublication}</p>
-        <p className="text-xl">Price: {price}</p>
-
-        <p className="text-sm flex flex-row">
+          <p className="text-xl">Price: {price}</p>
+          <p className="text-sm flex flex-row">
           Availability: <p className={`ms-2 ${status ? 'text-green-500' : 'text-destructive'}`}>{status ? 'In stock' : 'Out of stock'}</p>
-        </p>
-
+          </p>
         {
           email? <><div className='flex'>
           <Button onClick={handleNavigate}>Edit Book</Button>

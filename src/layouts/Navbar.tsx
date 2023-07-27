@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto ">
           <div>
             {/* <img className="h-8" src={logo} alt="log" /> */}
-            <Link to='/'><h2 className='lg:text-3xl text-primary font-extrabold sm:text-sm'>The bookTown</h2></Link>
+            <Link to='/'><h2 className='text-2xl text-primary font-extrabold sm:text-4xl ms-6 lg:ms-0'>The bookTown</h2></Link>
           </div>
           <div>
             <ul className="flex items-center">

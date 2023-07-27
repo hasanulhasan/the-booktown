@@ -52,9 +52,9 @@ export default function Products() {
     }).filter(book => book.title.toLowerCase().includes(search.toLowerCase())).map(book => <ProductCard key={book._id} book={book} />)}
 
   return (
-    <div className="grid grid-cols-12 max-w-7xl mx-auto relative ">
-      <div className="col-span-3 z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-5 self-start sticky top-16 h-[calc(100vh-80px)]">
-        <div>
+    <div className="grid sm:grid-cols-1 md:grid-cols-12 lg:grid-cols-12 max-w-7xl mx-auto relative ">
+      <div className="col-span-3 w-full z mr-10 space-y-5 border rounded-2xl border-gray-200/80 p-5 self-start lg:sticky md:sticky top-16 lg:h-[calc(100vh-80px)]">
+        <div className="space-y-3 ">
           <h1 className="text-xl uppercase">Search</h1>
           <div className="flex items-center space-x-2 mt-3">
             <Input onChange={(e)=> dispatch(searchParam(e.target.value))} placeholder='Search book'/>
@@ -91,7 +91,7 @@ export default function Products() {
         </div>
 
       </div>
-      <div className="col-span-9 grid grid-cols-3 gap-10 pb-20">
+      <div className="col-span-9 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10 pb-20 mx-auto">
         {
          content
         }

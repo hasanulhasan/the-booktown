@@ -22,31 +22,35 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex justify-between items-center h-[calc(100vh-80px)] max-w-7xl mx-auto ">
-        <div>
-          <h1 className="text-6xl font-black text-primary mb-2">
+      <div className="lg:flex justify-between items-center h-[calc(100vh-80px)] max-w-7xl mx-auto">
+
+        <div className='ms-5 lg:ms-0 mr-5'>
+          <h1 className="text-4xl font-black text-primary mb-2 sm:text-6xl sm:leading-none ">
             DIVE TO<br /> SEA OF KNOWLEDGE
           </h1>
           <p className="text-secondary font-semibold text-xl">
             Choice your best one without any hassle
           </p>
-          <div className="text-primary mt-20">
+          <div className="text-primary sm:mt-20 mt-4">
             <p>“Reality doesn’t always give us the life that we desire,<br/> 
             but we can always find what we desire between the pages of books.”<br/>
             ―Adelise M. Cullens</p>
           </div>
           <Button className="mt-5"><Link to="/products">Let's explore</Link></Button>
         </div>
-        <div className="relative -right-14">
+
+        <div className="relative lg:-right-14">
           <img src={banner} alt="" />
         </div>
+        
       </div>
+
       <div className="mb-72">
         <div>
           <img className="mx-auto" src={hero} alt="" />
         </div>
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-5xl font-black text-primary uppercase mt-10">
+          <h1 className="text-4xl text-center sm:text-5xl font-black text-primary uppercase mt-10">
             Buy book make future
           </h1>
           <Button className="mt-10" asChild>
@@ -58,11 +62,11 @@ export default function Home() {
             Our latest collection
           </h1>
       <div className="grid grid-cols-12 max-w-7xl mx-auto relative">
-        <div className="col-span-12 grid lg:grid-cols-4 grid-cols-1 gap-10 pb-20">
+        <div className="col-span-12 grid lg:grid-cols-4 grid-cols-1 gap-10 pb-20 mx-auto">
         {
          content
         }
-      </div>
+        </div>
       </div>
 
     </>
